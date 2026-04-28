@@ -110,8 +110,8 @@
       // Seed each segment along its tentacle's rest curve so we don't
       // get a whip-streak from (0,0) on the first frame.
       const back = agent.heading + Math.PI;
-      const baseX = x + Math.cos(back) * size * 0.6;
-      const baseY = y + Math.sin(back) * size * 0.6;
+      const baseX = x + Math.cos(back) * size * 1.15;
+      const baseY = y + Math.sin(back) * size * 1.15;
       for (let i = 0; i < tentacles.length; i++) {
         const t = tentacles[i];
         const fanOffset = ((t.idx + 0.5) / tentacles.length - 0.5) * TENTACLE_ARC;
@@ -256,8 +256,8 @@
 
     function snapTentaclesToRest(a) {
       const back = a.heading + Math.PI;
-      const baseX = a.x + Math.cos(back) * a.size * 0.6;
-      const baseY = a.y + Math.sin(back) * a.size * 0.6;
+      const baseX = a.x + Math.cos(back) * a.size * 1.15;
+      const baseY = a.y + Math.sin(back) * a.size * 1.15;
       for (let i = 0; i < a.tentacles.length; i++) {
         const t = a.tentacles[i];
         const fanOffset = ((t.idx + 0.5) / a.tentacles.length - 0.5) * TENTACLE_ARC;
@@ -276,8 +276,8 @@
 
     function updateTentacles(a, frame) {
       const back = a.heading + Math.PI;
-      const baseX = a.x + Math.cos(back) * a.size * 0.6;
-      const baseY = a.y + Math.sin(back) * a.size * 0.6;
+      const baseX = a.x + Math.cos(back) * a.size * 1.15;
+      const baseY = a.y + Math.sin(back) * a.size * 1.15;
 
       for (let i = 0; i < a.tentacles.length; i++) {
         const t = a.tentacles[i];
@@ -323,8 +323,8 @@
       const pulse = 0.55 + Math.sin(a.pulse) * 0.35;
 
       const back = a.heading + Math.PI;
-      const baseX = a.x + Math.cos(back) * a.size * 0.6;
-      const baseY = a.y + Math.sin(back) * a.size * 0.6;
+      const baseX = a.x + Math.cos(back) * a.size * 1.15;
+      const baseY = a.y + Math.sin(back) * a.size * 1.15;
 
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -373,36 +373,26 @@
     function drawMantle(a) {
       const t = a.tint;
       const pulse = 0.65 + Math.sin(a.pulse) * 0.35;
+      const R = a.size * 1.55;
+
       ctx.save();
       ctx.translate(a.x, a.y);
       ctx.rotate(a.heading);
 
-      // Mantle bulb — elongated along the swim direction (Darth Vader-esque hood silhouette)
-      ctx.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},${0.78 * pulse + 0.18})`;
+      // Round mantle bulb — bigger, perfectly spherical silhouette
+      ctx.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},${0.80 * pulse + 0.18})`;
       ctx.beginPath();
-      ctx.ellipse(a.size * 0.15, 0, a.size * 1.55, a.size * 0.92, 0, 0, Math.PI * 2);
+      ctx.arc(0, 0, R, 0, Math.PI * 2);
       ctx.fill();
 
-      // Inner highlight — sheen on the leading edge
-      ctx.fillStyle = `rgba(255, 255, 255, ${0.32 * pulse})`;
+      // Soft sheen on the leading-front quadrant — gives a wet, luminous orb
+      // feel without reading as a literal "face" or eyes.
+      const grad = ctx.createRadialGradient(R * 0.42, -R * 0.42, 0, R * 0.42, -R * 0.42, R * 0.95);
+      grad.addColorStop(0,    `rgba(255, 255, 255, ${0.42 * pulse})`);
+      grad.addColorStop(0.45, `rgba(255, 255, 255, 0)`);
+      ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.ellipse(a.size * 0.55, -a.size * 0.18, a.size * 0.42, a.size * 0.16, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Twin eye-spots — alien cephalopod cue
-      const eyeR = Math.max(0.55, a.size * 0.18);
-      const ex = a.size * 0.4;
-      const ey = a.size * 0.42;
-      ctx.fillStyle = `rgba(8, 8, 10, 0.85)`;
-      ctx.beginPath();
-      ctx.arc(ex,  ey, eyeR, 0, Math.PI * 2);
-      ctx.arc(ex, -ey, eyeR, 0, Math.PI * 2);
-      ctx.fill();
-      // Eye gleam
-      ctx.fillStyle = `rgba(255, 255, 255, 0.9)`;
-      ctx.beginPath();
-      ctx.arc(ex + eyeR * 0.25,  ey - eyeR * 0.25, eyeR * 0.35, 0, Math.PI * 2);
-      ctx.arc(ex + eyeR * 0.25, -ey - eyeR * 0.25, eyeR * 0.35, 0, Math.PI * 2);
+      ctx.arc(0, 0, R, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.restore();
