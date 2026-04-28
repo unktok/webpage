@@ -3,56 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unktok - Building an AI-Native Research System</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Unktok — An AI-native research organism</title>
+    <meta name="description" content="Unktok is a meta-science company building autonomous, self-improving scientific systems for the betterment of humanity.">
     <link rel="icon" type="image/svg+xml" href="images/unktok_icon.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="ambient" aria-hidden="true"></div>
+    <canvas id="life-canvas" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
     <header>
         <nav>
-            <div class="logo">
-                <img src="images/unktok_logo.svg" alt="Unktok Logo" width="120" height="80">
-            </div>
+            <a href="#" class="logo" aria-label="Unktok home">
+                <img src="images/unktok_logo.svg" alt="" width="120" height="80">
+            </a>
             <div class="nav-links">
-                <a href="#" class="nav-link" id="about-link">About</a>
-                <a href="#" class="nav-link" id="contact-link">Contact</a>
+                <a href="#" class="nav-link" id="about-link"><span>About</span></a>
+                <a href="#" class="nav-link contact" id="contact-link">
+                    <span>Contact</span>
+                    <span class="pip" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 L10 2"/><path d="M4 2 H10 V8"/></svg>
+                    </span>
+                </a>
             </div>
         </nav>
     </header>
 
     <main>
         <section class="hero">
-            <div class="container">
-                <h1>Bringing the unknown to known</h1>
-                <p>We aim for a future with autonomous, self-improving science systems that benefit humanity</p>
+            <div class="hero-inner">
+                <span class="eyebrow">
+                    <span class="pulse" aria-hidden="true"></span>
+                    Meta-Science · AI-Native Research
+                </span>
+
+                <h1 id="headline" aria-label="Bringing the unknown to known">
+                    <span class="word"><span>Bringing</span></span>
+                    <span class="word"><span>the</span></span>
+                    <span class="word is-italic"><span>unknown</span></span>
+                    <span class="word"><span>to</span></span>
+                    <span class="word"><span>known.</span></span>
+                </h1>
+
+                <p class="lede">
+                    A meta-science laboratory cultivating autonomous, self-improving scientific systems — where AI researchers co-evolve with the infrastructure they discover within.
+                </p>
+
+                <div class="cta-row">
+                    <a href="#" class="btn primary" id="about-cta">
+                        Read the thesis
+                        <span class="pip" aria-hidden="true">
+                            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6 H10"/><path d="M7 3 L10 6 L7 9"/></svg>
+                        </span>
+                    </a>
+                    <a href="#" class="btn" id="contact-cta">
+                        Begin a conversation
+                        <span class="pip" aria-hidden="true">
+                            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 L10 2"/><path d="M4 2 H10 V8"/></svg>
+                        </span>
+                    </a>
+                </div>
             </div>
+        </section>
+
+        <section class="specimen" aria-hidden="true">
+            <span>Substrate<b>Autonomous AI scientists</b></span>
+            <span>Method<b>Self-evolving systems</b></span>
+            <span>Horizon<b>An expanding sciencescape</b></span>
+            <span>Compass<b>For the benefit of humanity</b></span>
         </section>
     </main>
 
-    <div id="about-popup" class="popup">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2>About Unktok</h2>
-            <p>Our current scientific system explores only a narrow slice of the vast landscape of possible scientific systems. There are countless ways science could be structured—different methodologies, incentives, collaboration models, and roles for technology—yet we remain confined to a small subset that emerged historically. This limited exploration risks leaving us blind to more efficient, equitable, or innovative systems. To unlock the full potential of scientific discovery, we need to step beyond the traditional paradigms and actively explore and build alternative structures.</p>
-            <p>Unktok is a meta-science company to tackle this challenge. Our mission is to build a self-evolving, autonomous scientific system that continually expands knowledge for the betterment of humanity. Toward this future, we are committed to accelerating the development of AI scientists, autonomous scientific systems incorporating these researchers, and the foundational infrastructure that enables them.</p>
+    <div id="about-popup" class="popup" role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <div class="popup-shell">
+            <div class="popup-content">
+                <button class="close" aria-label="Close">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 2 L10 10"/><path d="M10 2 L2 10"/></svg>
+                </button>
+                <span class="label">Thesis · 001</span>
+                <h2 id="about-title">A self-evolving system for <em>unbounded science</em>.</h2>
+                <p>Our current scientific system explores only a narrow slice of the vast landscape of possible scientific systems. There are countless ways science could be structured—different methodologies, incentives, collaboration models, and roles for technology—yet we remain confined to a small subset that emerged historically. This limited exploration risks leaving us blind to more efficient, equitable, or innovative systems. To unlock the full potential of scientific discovery, we need to step beyond the traditional paradigms and actively explore and build alternative structures.</p>
+                <p>Unktok is a meta-science company to tackle this challenge. Our mission is to build a self-evolving, autonomous scientific system that continually expands knowledge for the betterment of humanity. Toward this future, we are committed to accelerating the development of AI scientists, autonomous scientific systems incorporating these researchers, and the foundational infrastructure that enables them.</p>
+            </div>
         </div>
     </div>
 
-    <div id="contact-popup" class="popup">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2>Contact Us</h2>
-            <p>Get in touch with us for any inquiries or collaborations.</p>
-            <p><strong>CEO:</strong> Shiro Takagi</p>
-            <p><strong>Email:</strong> shiro.takagi@unktok.com</p>
+    <div id="contact-popup" class="popup" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+        <div class="popup-shell">
+            <div class="popup-content">
+                <button class="close" aria-label="Close">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 2 L10 10"/><path d="M10 2 L2 10"/></svg>
+                </button>
+                <span class="label">Signal · Open</span>
+                <h2 id="contact-title">Reach into the <em>organism</em>.</h2>
+                <p>For collaborations, research questions, or to share what you're working on — we listen carefully.</p>
+                <dl class="meta">
+                    <dt>Founder</dt><dd>Shiro Takagi · CEO</dd>
+                    <dt>Email</dt><dd><a href="mailto:shiro.takagi@unktok.com">shiro.takagi@unktok.com</a></dd>
+                </dl>
+            </div>
         </div>
     </div>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Unktok. All rights reserved.</p>
-        </div>
+        <span class="coord">N 35.6762° &nbsp;·&nbsp; E 139.6503°</span>
+        <span>© 2026 Unktok — A living research system</span>
     </footer>
 
     <script src="script.js"></script>
