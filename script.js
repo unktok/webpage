@@ -56,8 +56,8 @@
     }
 
     function seed() {
-      // Octopus colony — sparser so each individual reads as a distinct creature
-      const target = Math.max(18, Math.min(42, Math.floor((W * H) / 38000)));
+      // Octopus colony — quieter population so they don't crowd the typography
+      const target = Math.max(10, Math.min(24, Math.floor((W * H) / 60000)));
       population = target;
       agents.length = 0;
       for (let i = 0; i < target; i++) {
@@ -74,7 +74,7 @@
       const speed = 0.10 + Math.random() * 0.22;
       const x = Math.random() * W;
       const y = Math.random() * H;
-      const size = 5.5 + Math.random() * 3.2;          // bigger, more imposing mantle
+      const size = 7.0 + Math.random() * 4.5;          // big, dominant glowing mantle
 
       const tentacles = [];
       for (let i = 0; i < TENTACLES_PER_AGENT; i++) {
@@ -128,11 +128,11 @@
       return agent;
     }
 
-    // Flocking parameters
-    const NEIGHBOR_R = 130;
-    const SEPARATE_R = 56;       // octopuses keep more distance — tentacles need space
-    const MAX_SPEED  = 0.65;
-    const MAX_FORCE  = 0.010;
+    // Flocking parameters — octopuses are mostly solitary; we keep them dispersed
+    const NEIGHBOR_R = 200;
+    const SEPARATE_R = 150;      // wide personal-space radius matched to bigger bodies
+    const MAX_SPEED  = 0.55;
+    const MAX_FORCE  = 0.008;
 
     let frame = 0;
 
@@ -174,17 +174,19 @@
 
         if (nCount > 0) {
           alignX /= nCount; alignY /= nCount;
-          a.vx += clamp((alignX - a.vx) * 0.04, -MAX_FORCE, MAX_FORCE);
-          a.vy += clamp((alignY - a.vy) * 0.04, -MAX_FORCE, MAX_FORCE);
+          a.vx += clamp((alignX - a.vx) * 0.02, -MAX_FORCE, MAX_FORCE);
+          a.vy += clamp((alignY - a.vy) * 0.02, -MAX_FORCE, MAX_FORCE);
 
+          // Cohesion is intentionally very weak so they don't clump up
           cohX = cohX / nCount - a.x;
           cohY = cohY / nCount - a.y;
-          a.vx += clamp(cohX * 0.0005, -MAX_FORCE, MAX_FORCE);
-          a.vy += clamp(cohY * 0.0005, -MAX_FORCE, MAX_FORCE);
+          a.vx += clamp(cohX * 0.00015, -MAX_FORCE, MAX_FORCE);
+          a.vy += clamp(cohY * 0.00015, -MAX_FORCE, MAX_FORCE);
         }
         if (sCount > 0) {
-          a.vx += clamp(sepX * 0.05, -MAX_FORCE * 5, MAX_FORCE * 5);
-          a.vy += clamp(sepY * 0.05, -MAX_FORCE * 5, MAX_FORCE * 5);
+          // Strong separation pushes them apart firmly
+          a.vx += clamp(sepX * 0.08, -MAX_FORCE * 6, MAX_FORCE * 6);
+          a.vy += clamp(sepY * 0.08, -MAX_FORCE * 6, MAX_FORCE * 6);
         }
 
         // Pointer — gentle inquisitive approach, halo repulsion if very close
@@ -201,9 +203,10 @@
           }
         }
 
-        // Drift toward center
-        a.vx += ((W * 0.5 - a.x) / W) * 0.0007;
-        a.vy += ((H * 0.5 - a.y) / H) * 0.0007;
+        // Very gentle drift toward center — just enough to keep them on screen,
+        // not enough to pull them into a clump.
+        a.vx += ((W * 0.5 - a.x) / W) * 0.00025;
+        a.vy += ((H * 0.5 - a.y) / H) * 0.00025;
 
         const sp = Math.hypot(a.vx, a.vy);
         if (sp > MAX_SPEED) {
@@ -372,24 +375,31 @@
     function drawMantle(a) {
       const t = a.tint;
       const pulse = 0.65 + Math.sin(a.pulse) * 0.35;
-      const R = a.size * 1.75;
+      const R = a.size * 2.3;
 
       ctx.save();
       ctx.translate(a.x, a.y);
       ctx.rotate(a.heading);
 
-      // Round mantle bulb — bigger, perfectly spherical silhouette
-      ctx.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},${0.80 * pulse + 0.18})`;
+      // Soft luminous gel — radial gradient instead of a hard disc edge.
+      // The body fades to transparent at the rim, reading as an organic
+      // bioluminescent orb rather than a geometric circle.
+      const body = ctx.createRadialGradient(0, 0, 0, 0, 0, R);
+      body.addColorStop(0,    `rgba(${t[0]},${t[1]},${t[2]},${0.95 * pulse + 0.20})`);
+      body.addColorStop(0.55, `rgba(${t[0]},${t[1]},${t[2]},${0.70 * pulse + 0.16})`);
+      body.addColorStop(0.85, `rgba(${t[0]},${t[1]},${t[2]},${0.22 * pulse + 0.05})`);
+      body.addColorStop(1,    `rgba(${t[0]},${t[1]},${t[2]},0)`);
+      ctx.fillStyle = body;
       ctx.beginPath();
       ctx.arc(0, 0, R, 0, Math.PI * 2);
       ctx.fill();
 
-      // Soft sheen on the leading-front quadrant — gives a wet, luminous orb
-      // feel without reading as a literal "face" or eyes.
-      const grad = ctx.createRadialGradient(R * 0.42, -R * 0.42, 0, R * 0.42, -R * 0.42, R * 0.95);
-      grad.addColorStop(0,    `rgba(255, 255, 255, ${0.42 * pulse})`);
-      grad.addColorStop(0.45, `rgba(255, 255, 255, 0)`);
-      ctx.fillStyle = grad;
+      // Off-axis sheen — small wet highlight, not centered (avoids the
+      // perfectly symmetric "CSS dot" feel)
+      const sheen = ctx.createRadialGradient(R * 0.38, -R * 0.42, 0, R * 0.38, -R * 0.42, R * 0.85);
+      sheen.addColorStop(0,    `rgba(255, 255, 255, ${0.32 * pulse})`);
+      sheen.addColorStop(0.45, `rgba(255, 255, 255, 0)`);
+      ctx.fillStyle = sheen;
       ctx.beginPath();
       ctx.arc(0, 0, R, 0, Math.PI * 2);
       ctx.fill();
