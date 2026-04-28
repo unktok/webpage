@@ -56,8 +56,8 @@
     }
 
     function seed() {
-      // Cephalopod colony — sparser than the previous swarm so each entity has room to breathe
-      const target = Math.max(28, Math.min(70, Math.floor((W * H) / 26000)));
+      // Octopus colony — sparser so each individual reads as a distinct creature
+      const target = Math.max(18, Math.min(42, Math.floor((W * H) / 38000)));
       population = target;
       agents.length = 0;
       for (let i = 0; i < target; i++) {
@@ -65,32 +65,35 @@
       }
     }
 
-    const TENTACLES_PER_AGENT = 6;
-    const SEGMENTS_PER_TENTACLE = 8;
-
-    // Tentacles fan in a narrow arc behind the body — squid/octopus tail vibe
-    const TENTACLE_ARC = Math.PI * 0.85;
+    const TENTACLES_PER_AGENT = 8;        // real octopus arm count
+    const SEGMENTS_PER_TENTACLE = 9;
 
     function makeAgent() {
       const tint = PALETTE[Math.floor(Math.random() * PALETTE.length)];
       const angle = Math.random() * Math.PI * 2;
-      const speed = 0.14 + Math.random() * 0.28;
+      const speed = 0.10 + Math.random() * 0.22;
       const x = Math.random() * W;
       const y = Math.random() * H;
-      const size = 4.2 + Math.random() * 2.4;          // larger mantle so body reads clearly
+      const size = 5.5 + Math.random() * 3.2;          // bigger, more imposing mantle
 
       const tentacles = [];
       for (let i = 0; i < TENTACLES_PER_AGENT; i++) {
-        // Stronger curl so tentacles visibly arc instead of looking like petals
+        // Each arm has its own personality: independent curl direction & strength,
+        // independent wobble phase/speed, independent length. Real octopus arms
+        // each move on their own.
         const curlSign = Math.random() < 0.5 ? -1 : 1;
+        // Spread radially with some jitter — not a perfectly even fan
+        const radialAngle = ((i + 0.5) / TENTACLES_PER_AGENT) * Math.PI * 2
+                          + (Math.random() - 0.5) * 0.35;
         tentacles.push({
           idx: i,
+          radialAngle,                               // body-local rest direction
           phase: Math.random() * Math.PI * 2,
-          curl: curlSign * (0.05 + Math.random() * 0.12),
-          wobble: 0.10 + Math.random() * 0.07,
-          waveSpeed: 0.04 + Math.random() * 0.02,
-          waveStep: 0.65 + Math.random() * 0.25,
-          segLen: 5.5 + Math.random() * 3.5,             // varied length per tentacle
+          curl: curlSign * (0.08 + Math.random() * 0.18),
+          wobble: 0.10 + Math.random() * 0.10,
+          waveSpeed: 0.03 + Math.random() * 0.045,    // wide variance prevents arms from syncing
+          waveStep: 0.55 + Math.random() * 0.45,
+          segLen: 6.5 + Math.random() * 4.5,
           segments: new Array(SEGMENTS_PER_TENTACLE),
         });
       }
@@ -107,19 +110,15 @@
         tentacles,
       };
 
-      // Seed each segment along its tentacle's rest curve so we don't
-      // get a whip-streak from (0,0) on the first frame.
-      const back = agent.heading + Math.PI;
-      const baseX = x + Math.cos(back) * size * 1.15;
-      const baseY = y + Math.sin(back) * size * 1.15;
+      // Seed each segment along its tentacle's rest curve so the first frame
+      // doesn't whip from (0,0).
       for (let i = 0; i < tentacles.length; i++) {
         const t = tentacles[i];
-        const fanOffset = ((t.idx + 0.5) / tentacles.length - 0.5) * TENTACLE_ARC;
-        let restAngle = back + fanOffset;
-        let pX = baseX, pY = baseY;
+        let restAngle = agent.heading + t.radialAngle;
+        let pX = x, pY = y;
         for (let j = 0; j < SEGMENTS_PER_TENTACLE; j++) {
           restAngle += t.curl;
-          const len = t.segLen * (1 - j * 0.06);
+          const len = t.segLen * (1 - j * 0.05);
           pX += Math.cos(restAngle) * len;
           pY += Math.sin(restAngle) * len;
           t.segments[j] = { x: pX, y: pY };
@@ -255,17 +254,13 @@
     }
 
     function snapTentaclesToRest(a) {
-      const back = a.heading + Math.PI;
-      const baseX = a.x + Math.cos(back) * a.size * 1.15;
-      const baseY = a.y + Math.sin(back) * a.size * 1.15;
       for (let i = 0; i < a.tentacles.length; i++) {
         const t = a.tentacles[i];
-        const fanOffset = ((t.idx + 0.5) / a.tentacles.length - 0.5) * TENTACLE_ARC;
-        let restAngle = back + fanOffset;
-        let pX = baseX, pY = baseY;
+        let restAngle = a.heading + t.radialAngle;
+        let pX = a.x, pY = a.y;
         for (let j = 0; j < t.segments.length; j++) {
           restAngle += t.curl;
-          const len = t.segLen * (1 - j * 0.06);
+          const len = t.segLen * (1 - j * 0.05);
           pX += Math.cos(restAngle) * len;
           pY += Math.sin(restAngle) * len;
           t.segments[j].x = pX;
@@ -275,29 +270,33 @@
     }
 
     function updateTentacles(a, frame) {
-      const back = a.heading + Math.PI;
-      const baseX = a.x + Math.cos(back) * a.size * 1.15;
-      const baseY = a.y + Math.sin(back) * a.size * 1.15;
+      // Tentacle bases all anchor at the body center — emerging from beneath
+      // the mantle in all radial directions, like a real octopus.
+      // Body motion + chain spring-lag naturally streams them backwards.
+      const baseX = a.x;
+      const baseY = a.y;
 
       for (let i = 0; i < a.tentacles.length; i++) {
         const t = a.tentacles[i];
-        const fanOffset = ((t.idx + 0.5) / a.tentacles.length - 0.5) * TENTACLE_ARC;
 
         let parentX = baseX;
         let parentY = baseY;
-        let restAngle = back + fanOffset;
+        let restAngle = a.heading + t.radialAngle;
 
         for (let j = 0; j < t.segments.length; j++) {
           restAngle += t.curl;
           const wave = Math.sin(frame * t.waveSpeed + t.phase - j * t.waveStep) * t.wobble;
           const segDir = restAngle + wave;
-          const len = t.segLen * (1 - j * 0.06);
+          const len = t.segLen * (1 - j * 0.05);
           const tx = parentX + Math.cos(segDir) * len;
           const ty = parentY + Math.sin(segDir) * len;
 
           const seg = t.segments[j];
-          seg.x += (tx - seg.x) * 0.28;
-          seg.y += (ty - seg.y) * 0.28;
+          // Lower stiffness on outer segments — tips swing more, base is stable.
+          // Looks much more organic and gives each arm its own inertia.
+          const stiffness = 0.40 - j * 0.025;
+          seg.x += (tx - seg.x) * stiffness;
+          seg.y += (ty - seg.y) * stiffness;
           parentX = seg.x;
           parentY = seg.y;
         }
@@ -322,9 +321,8 @@
       const t = a.tint;
       const pulse = 0.55 + Math.sin(a.pulse) * 0.35;
 
-      const back = a.heading + Math.PI;
-      const baseX = a.x + Math.cos(back) * a.size * 1.15;
-      const baseY = a.y + Math.sin(back) * a.size * 1.15;
+      const baseX = a.x;
+      const baseY = a.y;
 
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -345,11 +343,12 @@
 
           // Position along tentacle (0 at base, ~1 at tip)
           const u = j / (N - 1);
-          // Width: thick at base, hairline at tip
-          const w = 2.4 * (1 - u) + 0.35;
+          // Width: muscular thick base tapering to a hairline tip — non-linear
+          // taper so the base reads as a proper tentacle attachment
+          const w = 3.6 * Math.pow(1 - u, 1.4) + 0.35;
           // Opacity: fade out toward tip
-          const alphaCore  = (0.55 - 0.45 * u) * pulse + 0.06;
-          const alphaUnder = (0.16 - 0.13 * u) * pulse + 0.03;
+          const alphaCore  = (0.62 - 0.50 * u) * pulse + 0.06;
+          const alphaUnder = (0.20 - 0.16 * u) * pulse + 0.03;
 
           // Underglow
           ctx.strokeStyle = `rgba(${t[0]},${t[1]},${t[2]},${alphaUnder})`;
@@ -373,7 +372,7 @@
     function drawMantle(a) {
       const t = a.tint;
       const pulse = 0.65 + Math.sin(a.pulse) * 0.35;
-      const R = a.size * 1.55;
+      const R = a.size * 1.75;
 
       ctx.save();
       ctx.translate(a.x, a.y);
