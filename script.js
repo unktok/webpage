@@ -56,8 +56,8 @@
     }
 
     function seed() {
-      // Density ~ area / 14000, clamped
-      const target = Math.max(60, Math.min(160, Math.floor((W * H) / 14000)));
+      // Cephalopod colony — sparser than the previous swarm so each entity has room to breathe
+      const target = Math.max(28, Math.min(70, Math.floor((W * H) / 26000)));
       population = target;
       agents.length = 0;
       for (let i = 0; i < target; i++) {
@@ -65,36 +65,89 @@
       }
     }
 
+    const TENTACLES_PER_AGENT = 6;
+    const SEGMENTS_PER_TENTACLE = 8;
+
+    // Tentacles fan in a narrow arc behind the body — squid/octopus tail vibe
+    const TENTACLE_ARC = Math.PI * 0.85;
+
     function makeAgent() {
       const tint = PALETTE[Math.floor(Math.random() * PALETTE.length)];
       const angle = Math.random() * Math.PI * 2;
-      const speed = 0.25 + Math.random() * 0.55;
-      return {
-        x: Math.random() * W,
-        y: Math.random() * H,
+      const speed = 0.14 + Math.random() * 0.28;
+      const x = Math.random() * W;
+      const y = Math.random() * H;
+      const size = 4.2 + Math.random() * 2.4;          // larger mantle so body reads clearly
+
+      const tentacles = [];
+      for (let i = 0; i < TENTACLES_PER_AGENT; i++) {
+        // Stronger curl so tentacles visibly arc instead of looking like petals
+        const curlSign = Math.random() < 0.5 ? -1 : 1;
+        tentacles.push({
+          idx: i,
+          phase: Math.random() * Math.PI * 2,
+          curl: curlSign * (0.05 + Math.random() * 0.12),
+          wobble: 0.10 + Math.random() * 0.07,
+          waveSpeed: 0.04 + Math.random() * 0.02,
+          waveStep: 0.65 + Math.random() * 0.25,
+          segLen: 5.5 + Math.random() * 3.5,             // varied length per tentacle
+          segments: new Array(SEGMENTS_PER_TENTACLE),
+        });
+      }
+
+      const agent = {
+        x, y,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
-        r: 0.8 + Math.random() * 1.6,
+        size,
         tint,
-        phase: Math.random() * Math.PI * 2,
-        phaseSpeed: 0.004 + Math.random() * 0.01,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.004 + Math.random() * 0.008,
+        heading: angle,
+        tentacles,
       };
+
+      // Seed each segment along its tentacle's rest curve so we don't
+      // get a whip-streak from (0,0) on the first frame.
+      const back = agent.heading + Math.PI;
+      const baseX = x + Math.cos(back) * size * 0.6;
+      const baseY = y + Math.sin(back) * size * 0.6;
+      for (let i = 0; i < tentacles.length; i++) {
+        const t = tentacles[i];
+        const fanOffset = ((t.idx + 0.5) / tentacles.length - 0.5) * TENTACLE_ARC;
+        let restAngle = back + fanOffset;
+        let pX = baseX, pY = baseY;
+        for (let j = 0; j < SEGMENTS_PER_TENTACLE; j++) {
+          restAngle += t.curl;
+          const len = t.segLen * (1 - j * 0.06);
+          pX += Math.cos(restAngle) * len;
+          pY += Math.sin(restAngle) * len;
+          t.segments[j] = { x: pX, y: pY };
+        }
+      }
+
+      return agent;
     }
 
-    // Boids-ish parameters
-    const NEIGHBOR_R = 110;
-    const SEPARATE_R = 28;
-    const MAX_SPEED  = 0.85;
-    const MAX_FORCE  = 0.012;
+    // Flocking parameters
+    const NEIGHBOR_R = 130;
+    const SEPARATE_R = 56;       // octopuses keep more distance — tentacles need space
+    const MAX_SPEED  = 0.65;
+    const MAX_FORCE  = 0.010;
+
+    let frame = 0;
 
     function step() {
-      // soft trail fade for bloom feel
+      frame++;
+
+      // Soft trail fade — the ink-cloud feel. High enough to clear motion streaks,
+      // low enough to leave a faint luminous afterimage.
       ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0,0,0,0.22)';
+      ctx.fillStyle = 'rgba(0,0,0,0.32)';
       ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
 
-      // First pass: physics and connections
+      // ---- Physics (boids-style flocking) ----
       for (let i = 0; i < agents.length; i++) {
         const a = agents[i];
         let alignX = 0, alignY = 0;
@@ -110,17 +163,6 @@
           const d2 = dx * dx + dy * dy;
           if (d2 < NEIGHBOR_R * NEIGHBOR_R) {
             const d = Math.sqrt(d2) || 0.0001;
-            // Connection line (only on closer threshold to keep it subtle)
-            if (d < 92 && j > i) {
-              const alpha = (1 - d / 92) * 0.18;
-              const t = a.tint;
-              ctx.strokeStyle = `rgba(${t[0]},${t[1]},${t[2]},${alpha})`;
-              ctx.lineWidth = 0.5;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
             alignX += b.vx; alignY += b.vy;
             cohX   += b.x;  cohY   += b.y;
             nCount++;
@@ -131,42 +173,39 @@
           }
         }
 
-        // Steering forces
         if (nCount > 0) {
           alignX /= nCount; alignY /= nCount;
-          a.vx += clamp((alignX - a.vx) * 0.05, -MAX_FORCE, MAX_FORCE);
-          a.vy += clamp((alignY - a.vy) * 0.05, -MAX_FORCE, MAX_FORCE);
+          a.vx += clamp((alignX - a.vx) * 0.04, -MAX_FORCE, MAX_FORCE);
+          a.vy += clamp((alignY - a.vy) * 0.04, -MAX_FORCE, MAX_FORCE);
 
           cohX = cohX / nCount - a.x;
           cohY = cohY / nCount - a.y;
-          a.vx += clamp(cohX * 0.0006, -MAX_FORCE, MAX_FORCE);
-          a.vy += clamp(cohY * 0.0006, -MAX_FORCE, MAX_FORCE);
+          a.vx += clamp(cohX * 0.0005, -MAX_FORCE, MAX_FORCE);
+          a.vy += clamp(cohY * 0.0005, -MAX_FORCE, MAX_FORCE);
         }
         if (sCount > 0) {
-          a.vx += clamp(sepX * 0.04, -MAX_FORCE * 4, MAX_FORCE * 4);
-          a.vy += clamp(sepY * 0.04, -MAX_FORCE * 4, MAX_FORCE * 4);
+          a.vx += clamp(sepX * 0.05, -MAX_FORCE * 5, MAX_FORCE * 5);
+          a.vy += clamp(sepY * 0.05, -MAX_FORCE * 5, MAX_FORCE * 5);
         }
 
-        // Pointer interaction — gentle attraction with halo repulsion
+        // Pointer — gentle inquisitive approach, halo repulsion if very close
         if (pointer.active) {
           const px = pointer.x - a.x;
           const py = pointer.y - a.y;
           const pd2 = px * px + py * py;
           const pd = Math.sqrt(pd2) || 0.0001;
-          if (pd < 220) {
-            const f = (1 - pd / 220);
-            // attract from afar, repel up close
-            const sign = pd < 60 ? -1 : 0.6;
-            a.vx += (px / pd) * f * sign * 0.04;
-            a.vy += (py / pd) * f * sign * 0.04;
+          if (pd < 240) {
+            const f = (1 - pd / 240);
+            const sign = pd < 70 ? -1 : 0.55;
+            a.vx += (px / pd) * f * sign * 0.035;
+            a.vy += (py / pd) * f * sign * 0.035;
           }
         }
 
-        // Slow drift toward center to avoid escaping
-        a.vx += ((W * 0.5 - a.x) / W) * 0.0008;
-        a.vy += ((H * 0.5 - a.y) / H) * 0.0008;
+        // Drift toward center
+        a.vx += ((W * 0.5 - a.x) / W) * 0.0007;
+        a.vy += ((H * 0.5 - a.y) / H) * 0.0007;
 
-        // Limit speed
         const sp = Math.hypot(a.vx, a.vy);
         if (sp > MAX_SPEED) {
           a.vx = (a.vx / sp) * MAX_SPEED;
@@ -176,44 +215,197 @@
         a.x += a.vx;
         a.y += a.vy;
 
-        // Wrap edges
-        if (a.x < -10) a.x = W + 10;
-        if (a.x > W + 10) a.x = -10;
-        if (a.y < -10) a.y = H + 10;
-        if (a.y > H + 10) a.y = -10;
+        // Wrap edges. When wrapping, snap tentacle segments to their rest
+        // curve so we don't paint a streak from the old position to the new.
+        let wrapped = false;
+        if (a.x < -20)     { a.x = W + 20; wrapped = true; }
+        if (a.x > W + 20)  { a.x = -20;    wrapped = true; }
+        if (a.y < -20)     { a.y = H + 20; wrapped = true; }
+        if (a.y > H + 20)  { a.y = -20;    wrapped = true; }
+        if (wrapped) snapTentaclesToRest(a);
 
-        a.phase += a.phaseSpeed;
+        a.pulse += a.pulseSpeed;
+
+        // Smooth heading toward velocity (avoids nervous flipping at low speeds)
+        const targetHeading = Math.atan2(a.vy, a.vx);
+        let dh = targetHeading - a.heading;
+        while (dh >  Math.PI) dh -= Math.PI * 2;
+        while (dh < -Math.PI) dh += Math.PI * 2;
+        a.heading += dh * 0.08;
+
+        updateTentacles(a, frame);
       }
 
-      // Second pass: glowing cores
+      // ---- Render: halos -> tentacles -> mantles ----
       for (let i = 0; i < agents.length; i++) {
-        const a = agents[i];
-        const pulse = 0.6 + Math.sin(a.phase) * 0.4;
-        const t = a.tint;
-
-        // soft halo
-        const haloR = a.r * 6 * pulse;
-        const grad = ctx.createRadialGradient(a.x, a.y, 0, a.x, a.y, haloR);
-        grad.addColorStop(0,   `rgba(${t[0]},${t[1]},${t[2]},0.42)`);
-        grad.addColorStop(0.4, `rgba(${t[0]},${t[1]},${t[2]},0.10)`);
-        grad.addColorStop(1,   `rgba(${t[0]},${t[1]},${t[2]},0)`);
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(a.x, a.y, haloR, 0, Math.PI * 2);
-        ctx.fill();
-
-        // bright core
-        ctx.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},0.95)`;
-        ctx.beginPath();
-        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-        ctx.fill();
+        drawHalo(agents[i]);
       }
-
+      for (let i = 0; i < agents.length; i++) {
+        drawTentacles(agents[i]);
+      }
+      // Mantles drawn in normal compositing so they read as defined silhouettes
       ctx.globalCompositeOperation = 'source-over';
+      for (let i = 0; i < agents.length; i++) {
+        drawMantle(agents[i]);
+      }
 
       if (!reduceMotion) {
         rafId = requestAnimationFrame(step);
       }
+    }
+
+    function snapTentaclesToRest(a) {
+      const back = a.heading + Math.PI;
+      const baseX = a.x + Math.cos(back) * a.size * 0.6;
+      const baseY = a.y + Math.sin(back) * a.size * 0.6;
+      for (let i = 0; i < a.tentacles.length; i++) {
+        const t = a.tentacles[i];
+        const fanOffset = ((t.idx + 0.5) / a.tentacles.length - 0.5) * TENTACLE_ARC;
+        let restAngle = back + fanOffset;
+        let pX = baseX, pY = baseY;
+        for (let j = 0; j < t.segments.length; j++) {
+          restAngle += t.curl;
+          const len = t.segLen * (1 - j * 0.06);
+          pX += Math.cos(restAngle) * len;
+          pY += Math.sin(restAngle) * len;
+          t.segments[j].x = pX;
+          t.segments[j].y = pY;
+        }
+      }
+    }
+
+    function updateTentacles(a, frame) {
+      const back = a.heading + Math.PI;
+      const baseX = a.x + Math.cos(back) * a.size * 0.6;
+      const baseY = a.y + Math.sin(back) * a.size * 0.6;
+
+      for (let i = 0; i < a.tentacles.length; i++) {
+        const t = a.tentacles[i];
+        const fanOffset = ((t.idx + 0.5) / a.tentacles.length - 0.5) * TENTACLE_ARC;
+
+        let parentX = baseX;
+        let parentY = baseY;
+        let restAngle = back + fanOffset;
+
+        for (let j = 0; j < t.segments.length; j++) {
+          restAngle += t.curl;
+          const wave = Math.sin(frame * t.waveSpeed + t.phase - j * t.waveStep) * t.wobble;
+          const segDir = restAngle + wave;
+          const len = t.segLen * (1 - j * 0.06);
+          const tx = parentX + Math.cos(segDir) * len;
+          const ty = parentY + Math.sin(segDir) * len;
+
+          const seg = t.segments[j];
+          seg.x += (tx - seg.x) * 0.28;
+          seg.y += (ty - seg.y) * 0.28;
+          parentX = seg.x;
+          parentY = seg.y;
+        }
+      }
+    }
+
+    function drawHalo(a) {
+      const t = a.tint;
+      const pulse = 0.55 + Math.sin(a.pulse) * 0.35;
+      const haloR = a.size * 7 * pulse;
+      const grad = ctx.createRadialGradient(a.x, a.y, 0, a.x, a.y, haloR);
+      grad.addColorStop(0,    `rgba(${t[0]},${t[1]},${t[2]},0.34)`);
+      grad.addColorStop(0.35, `rgba(${t[0]},${t[1]},${t[2]},0.10)`);
+      grad.addColorStop(1,    `rgba(${t[0]},${t[1]},${t[2]},0)`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, haloR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function drawTentacles(a) {
+      const t = a.tint;
+      const pulse = 0.55 + Math.sin(a.pulse) * 0.35;
+
+      const back = a.heading + Math.PI;
+      const baseX = a.x + Math.cos(back) * a.size * 0.6;
+      const baseY = a.y + Math.sin(back) * a.size * 0.6;
+
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      for (let i = 0; i < a.tentacles.length; i++) {
+        const tent = a.tentacles[i];
+        const segs = tent.segments;
+        const N = segs.length;
+
+        // Per-segment tapered ribbon: each pair (j -> j+1) drawn with width
+        // and opacity that fade toward the tip. Yields a real tentacle taper
+        // rather than a uniform stick that looks like a flower petal.
+        for (let j = 0; j < N; j++) {
+          const fromX = j === 0 ? baseX : segs[j - 1].x;
+          const fromY = j === 0 ? baseY : segs[j - 1].y;
+          const toX = segs[j].x;
+          const toY = segs[j].y;
+
+          // Position along tentacle (0 at base, ~1 at tip)
+          const u = j / (N - 1);
+          // Width: thick at base, hairline at tip
+          const w = 2.4 * (1 - u) + 0.35;
+          // Opacity: fade out toward tip
+          const alphaCore  = (0.55 - 0.45 * u) * pulse + 0.06;
+          const alphaUnder = (0.16 - 0.13 * u) * pulse + 0.03;
+
+          // Underglow
+          ctx.strokeStyle = `rgba(${t[0]},${t[1]},${t[2]},${alphaUnder})`;
+          ctx.lineWidth = w * 2.6;
+          ctx.beginPath();
+          ctx.moveTo(fromX, fromY);
+          ctx.lineTo(toX, toY);
+          ctx.stroke();
+
+          // Core
+          ctx.strokeStyle = `rgba(${t[0]},${t[1]},${t[2]},${alphaCore})`;
+          ctx.lineWidth = w;
+          ctx.beginPath();
+          ctx.moveTo(fromX, fromY);
+          ctx.lineTo(toX, toY);
+          ctx.stroke();
+        }
+      }
+    }
+
+    function drawMantle(a) {
+      const t = a.tint;
+      const pulse = 0.65 + Math.sin(a.pulse) * 0.35;
+      ctx.save();
+      ctx.translate(a.x, a.y);
+      ctx.rotate(a.heading);
+
+      // Mantle bulb — elongated along the swim direction (Darth Vader-esque hood silhouette)
+      ctx.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},${0.78 * pulse + 0.18})`;
+      ctx.beginPath();
+      ctx.ellipse(a.size * 0.15, 0, a.size * 1.55, a.size * 0.92, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Inner highlight — sheen on the leading edge
+      ctx.fillStyle = `rgba(255, 255, 255, ${0.32 * pulse})`;
+      ctx.beginPath();
+      ctx.ellipse(a.size * 0.55, -a.size * 0.18, a.size * 0.42, a.size * 0.16, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Twin eye-spots — alien cephalopod cue
+      const eyeR = Math.max(0.55, a.size * 0.18);
+      const ex = a.size * 0.4;
+      const ey = a.size * 0.42;
+      ctx.fillStyle = `rgba(8, 8, 10, 0.85)`;
+      ctx.beginPath();
+      ctx.arc(ex,  ey, eyeR, 0, Math.PI * 2);
+      ctx.arc(ex, -ey, eyeR, 0, Math.PI * 2);
+      ctx.fill();
+      // Eye gleam
+      ctx.fillStyle = `rgba(255, 255, 255, 0.9)`;
+      ctx.beginPath();
+      ctx.arc(ex + eyeR * 0.25,  ey - eyeR * 0.25, eyeR * 0.35, 0, Math.PI * 2);
+      ctx.arc(ex + eyeR * 0.25, -ey - eyeR * 0.25, eyeR * 0.35, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
     }
 
     let rafId = 0;
