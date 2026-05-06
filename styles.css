@@ -545,6 +545,119 @@ footer .coord::before {
   box-shadow: 0 0 8px var(--bio-amber);
 }
 
+.footer-links {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+footer a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(244, 241, 234, 0.18);
+  transition: color 0.4s var(--ease-soft), border-color 0.4s var(--ease-soft);
+}
+
+footer a:hover {
+  color: var(--ink);
+  border-color: var(--bio-cyan);
+}
+
+/* ==========================================================================
+   Legal pages
+   ========================================================================== */
+
+.legal-page main {
+  display: block;
+}
+
+.legal-main {
+  width: min(100%, var(--max-w));
+  margin: 0 auto;
+  padding: 150px 48px 80px;
+}
+
+.legal-hero {
+  max-width: 900px;
+  margin-bottom: 48px;
+}
+
+.legal-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+  margin: 28px 0 22px;
+}
+
+.legal-hero p {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  line-height: 1.8;
+}
+
+.legal-panel {
+  border-top: 1px solid var(--hair-strong);
+  border-bottom: 1px solid var(--hair);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.legal-list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+}
+
+.legal-list dt,
+.legal-list dd {
+  margin: 0;
+  padding: 22px 0;
+  border-top: 1px solid var(--hair);
+}
+
+.legal-list dt:nth-of-type(1),
+.legal-list dd:nth-of-type(1) {
+  border-top: 0;
+}
+
+.legal-list dt {
+  padding-left: 28px;
+  padding-right: 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.legal-list dd {
+  padding-right: 28px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.legal-list dd span {
+  color: var(--ink-soft);
+}
+
+.legal-list dd a {
+  color: var(--bio-cyan);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(127, 255, 225, 0.32);
+}
+
+.legal-list dd a:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
 /* ==========================================================================
    Popups — Double-Bezel
    ========================================================================== */
@@ -690,12 +803,26 @@ footer .coord::before {
   .nav-link.contact { padding: 7px 6px 7px 14px; }
   .specimen { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 24px; }
   footer { flex-direction: column; gap: 10px; padding: 18px 24px; text-align: center; }
+  .legal-main { padding: 132px 24px 64px; }
+  .legal-list { grid-template-columns: 1fr; }
+  .legal-list dt {
+    padding: 22px 22px 6px;
+    border-top: 1px solid var(--hair);
+  }
+  .legal-list dd {
+    padding: 0 22px 22px;
+    border-top: 0;
+  }
+  .legal-list dt:nth-of-type(1) { border-top: 0; }
   .popup-content { padding: 28px 22px; }
 }
 
 @media (max-width: 520px) {
   .specimen { grid-template-columns: 1fr; }
   .nav-link:not(.contact) span { display: none; }
+  .legal-page nav { gap: 8px; padding-left: 14px; }
+  .legal-page .nav-link { padding: 8px 8px; }
+  .legal-page .nav-link:not(.contact) span { display: inline; }
 }
 
 @media (prefers-reduced-motion: reduce) {
