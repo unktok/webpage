@@ -599,6 +599,16 @@ footer a:hover {
   line-height: 1.8;
 }
 
+.legal-hero .legal-note {
+  margin: -8px 0 16px;
+  color: var(--bio-amber);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .legal-panel {
   border-top: 1px solid var(--hair-strong);
   border-bottom: 1px solid var(--hair);
