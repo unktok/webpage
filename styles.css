@@ -19,6 +19,8 @@
   --bio-violet: #b89dff;
   --bio-amber: #f6c87a;
   --bio-rose: #ff9ec7;
+  --signal-lime: #baff7b;
+  --grid-cyan: rgba(127, 255, 225, 0.055);
 
   --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
@@ -63,44 +65,61 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 66% 42%, rgba(127, 255, 225, 0.14), transparent 62%),
+    radial-gradient(ellipse 60% 48% at 24% 56%, rgba(184, 157, 255, 0.12), transparent 64%),
+    repeating-linear-gradient(0deg, transparent 0 21px, var(--grid-cyan) 21px 22px),
+    repeating-linear-gradient(90deg, transparent 0 21px, rgba(186, 255, 123, 0.035) 21px 22px);
 }
 
 .ambient::before,
 .ambient::after {
   content: '';
   position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.55;
+  filter: blur(26px);
   mix-blend-mode: screen;
   will-change: transform;
 }
 
 .ambient::before {
-  width: 60vmax;
-  height: 60vmax;
+  width: 130vmax;
+  height: 130vmax;
   left: -20vmax;
-  top: -10vmax;
-  background: radial-gradient(circle at 30% 30%, rgba(184, 157, 255, 0.55), transparent 60%);
-  animation: drift-a 28s var(--ease-glide) infinite alternate;
+  top: -28vmax;
+  opacity: 0.18;
+  background:
+    conic-gradient(from 80deg at 50% 50%,
+      transparent 0deg,
+      rgba(127, 255, 225, 0.36) 36deg,
+      transparent 68deg,
+      rgba(184, 157, 255, 0.28) 142deg,
+      transparent 192deg,
+      rgba(186, 255, 123, 0.26) 250deg,
+      transparent 318deg);
+  mask-image: radial-gradient(circle at center, black 0 38%, transparent 68%);
+  animation: data-rotate 54s linear infinite;
 }
 
 .ambient::after {
-  width: 55vmax;
-  height: 55vmax;
-  right: -18vmax;
-  bottom: -15vmax;
-  background: radial-gradient(circle at 70% 70%, rgba(127, 255, 225, 0.42), transparent 60%);
-  animation: drift-b 34s var(--ease-glide) infinite alternate;
+  inset: 0;
+  opacity: 0.18;
+  filter: none;
+  background:
+    linear-gradient(180deg, transparent 0 49%, rgba(127, 255, 225, 0.12) 50%, transparent 51% 100%),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 7px);
+  transform-origin: center;
+  animation: scan-field 10s linear infinite;
 }
 
-@keyframes drift-a {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  100% { transform: translate3d(8vw, 6vh, 0) scale(1.15); }
+@keyframes data-rotate {
+  0%   { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1.04); }
 }
-@keyframes drift-b {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  100% { transform: translate3d(-10vw, -8vh, 0) scale(1.1); }
+
+@keyframes scan-field {
+  0%   { transform: translateY(-10%); opacity: 0.12; }
+  45%  { opacity: 0.20; }
+  100% { transform: translateY(10%); opacity: 0.12; }
 }
 
 #life-canvas {
@@ -111,6 +130,8 @@ body {
   width: 100%;
   height: 100%;
   opacity: 0;
+  mix-blend-mode: screen;
+  filter: saturate(1.18) contrast(1.08);
   transition: opacity 1.6s var(--ease-soft);
 }
 

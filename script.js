@@ -34,6 +34,7 @@
 
     // Population scales with viewport
     const agents = [];
+    const signals = [];
     let population = 0;
 
     const PALETTE = [
@@ -56,25 +57,40 @@
     }
 
     function seed() {
-      // Octopus colony — quieter population so they don't crowd the typography
+      // Digital octopus colony — quiet enough to keep the typography readable.
       const target = Math.max(10, Math.min(24, Math.floor((W * H) / 60000)));
       population = target;
       agents.length = 0;
       for (let i = 0; i < target; i++) {
         agents.push(makeAgent());
       }
+
+      const signalTarget = Math.max(28, Math.min(80, Math.floor((W * H) / 17000)));
+      signals.length = 0;
+      for (let i = 0; i < signalTarget; i++) {
+        signals.push(makeSignal(true));
+      }
     }
 
     const TENTACLES_PER_AGENT = 8;        // real octopus arm count
     const SEGMENTS_PER_TENTACLE = 9;
+    const BIT_GRID = 4;
 
     function makeAgent() {
       const tint = PALETTE[Math.floor(Math.random() * PALETTE.length)];
       const angle = Math.random() * Math.PI * 2;
       const speed = 0.10 + Math.random() * 0.22;
-      const x = Math.random() * W;
-      const y = Math.random() * H;
+      let x = Math.random() * W;
+      let y = Math.random() * H;
+      for (let attempt = 0; attempt < 8 && isInReadabilityZone(x, y); attempt++) {
+        x = Math.random() * W;
+        y = Math.random() * H;
+      }
+      if (isInReadabilityZone(x, y)) {
+        y = Math.random() > 0.5 ? H + 40 : -40;
+      }
       const size = 7.0 + Math.random() * 4.5;          // big, dominant glowing mantle
+      const glyphSeed = Math.random() * Math.PI * 2;
 
       const tentacles = [];
       for (let i = 0; i < TENTACLES_PER_AGENT; i++) {
@@ -108,6 +124,9 @@
         pulseSpeed: 0.004 + Math.random() * 0.008,
         heading: angle,
         tentacles,
+        glyphSeed,
+        packetPhase: Math.random() * 1,
+        nodeCount: 7 + Math.floor(Math.random() * 5),
       };
 
       // Seed each segment along its tentacle's rest curve so the first frame
@@ -128,6 +147,24 @@
       return agent;
     }
 
+    function makeSignal(randomizeAge = false) {
+      const tint = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+      const horizontal = Math.random() > 0.5;
+      const speed = (0.18 + Math.random() * 0.42) * (Math.random() > 0.5 ? 1 : -1);
+      const maxLife = 140 + Math.random() * 220;
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: horizontal ? speed : 0,
+        vy: horizontal ? 0 : speed,
+        tint,
+        size: 1 + Math.random() * 2.2,
+        age: randomizeAge ? Math.random() * maxLife : 0,
+        maxLife,
+        horizontal,
+      };
+    }
+
     // Flocking parameters — octopuses are mostly solitary; we keep them dispersed
     const NEIGHBOR_R = 200;
     const SEPARATE_R = 150;      // wide personal-space radius matched to bigger bodies
@@ -142,9 +179,11 @@
       // Soft trail fade — the ink-cloud feel. High enough to clear motion streaks,
       // low enough to leave a faint luminous afterimage.
       ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0,0,0,0.32)';
+      ctx.fillStyle = 'rgba(0,0,0,0.38)';
       ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
+
+      drawSignalField();
 
       // ---- Physics (boids-style flocking) ----
       for (let i = 0; i < agents.length; i++) {
@@ -203,6 +242,8 @@
           }
         }
 
+        applyReadabilityAvoidance(a);
+
         // Very gentle drift toward center — just enough to keep them on screen,
         // not enough to pull them into a clump.
         a.vx += ((W * 0.5 - a.x) / W) * 0.00025;
@@ -238,22 +279,128 @@
         updateTentacles(a, frame);
       }
 
-      // ---- Render: halos -> tentacles -> mantles ----
+      // ---- Render: mesh -> halos -> tentacles -> mantles ----
+      drawNetworkLinks();
       for (let i = 0; i < agents.length; i++) {
+        if (isInReadabilityZone(agents[i].x, agents[i].y)) continue;
         drawHalo(agents[i]);
       }
       for (let i = 0; i < agents.length; i++) {
-        drawTentacles(agents[i]);
+        if (isInReadabilityZone(agents[i].x, agents[i].y)) continue;
+        drawTentacles(agents[i], frame);
       }
       // Mantles drawn in normal compositing so they read as defined silhouettes
       ctx.globalCompositeOperation = 'source-over';
       for (let i = 0; i < agents.length; i++) {
-        drawMantle(agents[i]);
+        if (isInReadabilityZone(agents[i].x, agents[i].y)) continue;
+        drawMantle(agents[i], frame);
       }
 
       if (!reduceMotion) {
         rafId = requestAnimationFrame(step);
       }
+    }
+
+    function applyReadabilityAvoidance(a) {
+      const zoneRight = W < 700 ? W + 90 : Math.min(W * 0.72, 900);
+      const zoneTop = W < 700 ? H * 0.10 : H * 0.18;
+      const zoneBottom = W < 700 ? Math.min(H * 0.98, 840) : Math.min(H * 0.82, 820);
+
+      if (a.x > zoneRight || a.y < zoneTop || a.y > zoneBottom) return;
+
+      const cx = zoneRight * 0.48;
+      const cy = (zoneTop + zoneBottom) * 0.5;
+      const dx = a.x - cx;
+      const dy = a.y - cy;
+      const d = Math.hypot(dx, dy) || 1;
+      const pressure = Math.min(1, (zoneRight - a.x) / zoneRight + 0.25);
+
+      a.vx += (dx / d) * pressure * 0.018 + 0.012;
+      a.vy += (dy / d) * pressure * 0.010;
+    }
+
+    function isInReadabilityZone(x, y) {
+      const zoneRight = W < 700 ? W + 90 : Math.min(W * 0.72, 900);
+      const zoneTop = W < 700 ? H * 0.10 : H * 0.18;
+      const zoneBottom = W < 700 ? Math.min(H * 0.98, 840) : Math.min(H * 0.82, 820);
+      return x <= zoneRight && y >= zoneTop && y <= zoneBottom;
+    }
+
+    function drawSignalField() {
+      for (let i = 0; i < signals.length; i++) {
+        const s = signals[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.age++;
+
+        if (s.x < -24 || s.x > W + 24 || s.y < -24 || s.y > H + 24 || s.age > s.maxLife) {
+          signals[i] = makeSignal(false);
+          if (signals[i].horizontal) {
+            signals[i].x = signals[i].vx > 0 ? -18 : W + 18;
+            signals[i].y = Math.round(Math.random() * H / 22) * 22;
+          } else {
+            signals[i].x = Math.round(Math.random() * W / 22) * 22;
+            signals[i].y = signals[i].vy > 0 ? -18 : H + 18;
+          }
+          continue;
+        }
+
+        const t = s.tint;
+        const fade = Math.sin((s.age / s.maxLife) * Math.PI);
+        const alpha = 0.07 + fade * 0.18;
+        ctx.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},${alpha})`;
+        ctx.strokeStyle = `rgba(${t[0]},${t[1]},${t[2]},${alpha * 0.55})`;
+        ctx.lineWidth = 1;
+
+        const len = 14 + s.size * 8;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x - Math.sign(s.vx) * len, s.y - Math.sign(s.vy) * len);
+        ctx.stroke();
+
+        ctx.fillRect(Math.round(s.x) - s.size, Math.round(s.y) - s.size, s.size * 2, s.size * 2);
+
+        if (frame % 3 === 0) {
+          const tailX = s.x - (s.horizontal ? Math.sign(s.vx) : 0) * (10 + s.size * 5);
+          const tailY = s.y - (s.horizontal ? 0 : Math.sign(s.vy)) * (10 + s.size * 5);
+          drawBitSquare(tailX, tailY, 2 + s.size, `rgba(${t[0]},${t[1]},${t[2]},${alpha * 0.9})`);
+        }
+      }
+    }
+
+    function drawNetworkLinks() {
+      const linkR = 245;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.lineWidth = 1;
+
+      for (let i = 0; i < agents.length; i++) {
+        const a = agents[i];
+        if (isInReadabilityZone(a.x, a.y)) continue;
+        for (let j = i + 1; j < agents.length; j++) {
+          const b = agents[j];
+          if (isInReadabilityZone(b.x, b.y)) continue;
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const d = Math.hypot(dx, dy);
+          if (d > linkR) continue;
+
+          const alpha = Math.pow(1 - d / linkR, 1.8) * 0.20;
+          const pulse = (Math.sin(frame * 0.035 + i * 1.7 + j) + 1) * 0.5;
+          const mx = a.x + dx * pulse;
+          const my = a.y + dy * pulse;
+
+          ctx.strokeStyle = `rgba(127,255,225,${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+
+          ctx.fillStyle = `rgba(246,200,122,${alpha * 1.8})`;
+          ctx.fillRect(Math.round(mx) - 1.5, Math.round(my) - 1.5, 3, 3);
+        }
+      }
+      ctx.restore();
     }
 
     function snapTentaclesToRest(a) {
@@ -320,7 +467,7 @@
       ctx.fill();
     }
 
-    function drawTentacles(a) {
+    function drawTentacles(a, frame) {
       const t = a.tint;
       const pulse = 0.55 + Math.sin(a.pulse) * 0.35;
 
@@ -368,11 +515,41 @@
           ctx.moveTo(fromX, fromY);
           ctx.lineTo(toX, toY);
           ctx.stroke();
+
+          const packet = (frame * 0.035 + a.packetPhase + i * 0.17 + j / N) % 1;
+          if (Math.abs(packet - (j / N)) < 0.045) {
+            const q = 0.64 + Math.sin(frame * 0.12 + j) * 0.16;
+            ctx.fillStyle = `rgba(255,255,255,${0.28 * q})`;
+            ctx.fillRect(Math.round(toX) - 1.5, Math.round(toY) - 1.5, 3, 3);
+          }
+
+          if ((j + i + frame) % 16 === 0) {
+            ctx.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},${0.22 * pulse})`;
+            ctx.fillRect(Math.round(toX) - 1, Math.round(toY) - 1, 2, 2);
+          }
+
+          const bitCount = j < 4 ? 3 : 2;
+          for (let k = 0; k < bitCount; k++) {
+            const f = (k + 1) / (bitCount + 1);
+            const bx = fromX + (toX - fromX) * f;
+            const by = fromY + (toY - fromY) * f;
+            const noise = bitNoise(a.glyphSeed, i * 31 + j * 7 + k, frame);
+            if (noise < 0.34 + u * 0.24) continue;
+
+            const bitSize = Math.max(2, Math.round((4.8 - u * 2.8) + noise * 2));
+            const bitAlpha = (0.18 + noise * 0.26) * (1 - u * 0.45) * pulse;
+            drawBitSquare(
+              bx + (noise - 0.5) * 5,
+              by + Math.sin(frame * 0.06 + k + i) * 2,
+              bitSize,
+              `rgba(${t[0]},${t[1]},${t[2]},${bitAlpha})`
+            );
+          }
         }
       }
     }
 
-    function drawMantle(a) {
+    function drawMantle(a, frame) {
       const t = a.tint;
       const pulse = 0.65 + Math.sin(a.pulse) * 0.35;
       const R = a.size * 2.3;
@@ -394,6 +571,33 @@
       ctx.arc(0, 0, R, 0, Math.PI * 2);
       ctx.fill();
 
+      // Synthetic membrane: angular scan geometry over the soft body.
+      ctx.globalCompositeOperation = 'lighter';
+      drawBitMembrane(a, R, t, pulse, frame);
+
+      ctx.strokeStyle = `rgba(${t[0]},${t[1]},${t[2]},${0.36 * pulse})`;
+      ctx.lineWidth = 1;
+      drawPolygon(0, 0, R * 0.86, 7, a.glyphSeed + frame * 0.002);
+      ctx.stroke();
+
+      ctx.strokeStyle = `rgba(255,255,255,${0.13 * pulse})`;
+      ctx.beginPath();
+      ctx.moveTo(-R * 0.62, 0);
+      ctx.lineTo(R * 0.62, 0);
+      ctx.moveTo(0, -R * 0.62);
+      ctx.lineTo(0, R * 0.62);
+      ctx.stroke();
+
+      for (let i = 0; i < a.nodeCount; i++) {
+        const u = i / a.nodeCount;
+        const angle = u * Math.PI * 2 + a.glyphSeed + Math.sin(frame * 0.01 + i) * 0.08;
+        const nr = R * (0.52 + 0.22 * Math.sin(frame * 0.017 + i * 1.9));
+        const nx = Math.cos(angle) * nr;
+        const ny = Math.sin(angle) * nr;
+        ctx.fillStyle = `rgba(255,255,255,${0.18 + 0.18 * pulse})`;
+        ctx.fillRect(Math.round(nx) - 1.2, Math.round(ny) - 1.2, 2.4, 2.4);
+      }
+
       // Off-axis sheen — small wet highlight, not centered (avoids the
       // perfectly symmetric "CSS dot" feel)
       const sheen = ctx.createRadialGradient(R * 0.38, -R * 0.42, 0, R * 0.38, -R * 0.42, R * 0.85);
@@ -405,6 +609,57 @@
       ctx.fill();
 
       ctx.restore();
+    }
+
+    function drawBitMembrane(a, R, t, pulse, frame) {
+      for (let i = 0; i < 28; i++) {
+        const noise = bitNoise(a.glyphSeed, i * 13, frame);
+        const angle = a.glyphSeed + i * 2.399 + Math.sin(frame * 0.011 + i) * 0.12;
+        const radius = R * (0.34 + noise * 0.72);
+        const bx = Math.cos(angle) * radius;
+        const by = Math.sin(angle) * radius;
+        const size = 2 + Math.round(noise * 5);
+        const alpha = (0.14 + noise * 0.34) * pulse;
+        drawBitSquare(bx, by, size, `rgba(${t[0]},${t[1]},${t[2]},${alpha})`);
+      }
+
+      for (let i = 0; i < 18; i++) {
+        const angle = a.glyphSeed + frame * 0.003 + (i / 18) * Math.PI * 2;
+        const flicker = bitNoise(a.glyphSeed, i * 29 + 100, frame);
+        const radius = R * (0.82 + flicker * 0.42);
+        const size = 2 + Math.round(flicker * 4);
+        drawBitSquare(
+          Math.cos(angle) * radius,
+          Math.sin(angle) * radius,
+          size,
+          `rgba(255,255,255,${0.08 + flicker * 0.22})`
+        );
+      }
+    }
+
+    function drawPolygon(x, y, radius, sides, rotation = 0) {
+      ctx.beginPath();
+      for (let i = 0; i <= sides; i++) {
+        const a = rotation + (i / sides) * Math.PI * 2;
+        const px = x + Math.cos(a) * radius;
+        const py = y + Math.sin(a) * radius;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+    }
+
+    function drawBitSquare(x, y, size, fillStyle) {
+      const s = Math.max(1, Math.round(size));
+      const px = Math.round(x / BIT_GRID) * BIT_GRID;
+      const py = Math.round(y / BIT_GRID) * BIT_GRID;
+      ctx.fillStyle = fillStyle;
+      ctx.fillRect(px - s / 2, py - s / 2, s, s);
+    }
+
+    function bitNoise(seed, index, frame) {
+      const pulseFrame = Math.floor(frame / 7);
+      const v = Math.sin(seed * 997 + index * 131.7 + pulseFrame * 0.73) * 43758.5453;
+      return v - Math.floor(v);
     }
 
     let rafId = 0;
