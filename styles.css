@@ -1001,16 +1001,6 @@ footer a:hover {
   padding: 30px 0 10px;
 }
 
-.post-body .section-mark {
-  display: block;
-  max-width: 72ch;
-  margin: 0 auto 10px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--bio-cyan);
-}
 
 .post-body h2 {
   max-width: 72ch;
