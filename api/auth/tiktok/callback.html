@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Callback | Unktok Creative Lab</title>
+    <meta name="description" content="TikTok OAuth callback endpoint for Unktok Creative Lab.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="../../../images/tiktok-creative-lab-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body class="legal-page callback-page">
+    <div class="ambient" aria-hidden="true"></div>
+    <canvas id="life-canvas" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main class="legal-main callback-main">
+        <section class="callback-shell">
+            <img class="app-icon-large" src="../../../images/tiktok-creative-lab-icon.png" alt="Unktok Creative Lab app icon" width="112" height="112">
+            <span class="eyebrow">
+                <span class="pulse" aria-hidden="true"></span>
+                TikTok OAuth callback
+            </span>
+            <h1 id="callback-title">Processing authorization</h1>
+            <p id="callback-copy">Checking the authorization response from TikTok.</p>
+            <dl class="callback-meta">
+                <dt>State</dt><dd id="callback-state">-</dd>
+                <dt>Code</dt><dd id="callback-code">-</dd>
+            </dl>
+            <a class="btn primary" href="../../../tiktok-creative-lab-app.html">
+                Return to workspace
+                <span class="pip" aria-hidden="true">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6 H10"/><path d="M7 3 L10 6 L7 9"/></svg>
+                </span>
+            </a>
+        </section>
+    </main>
+
+    <script src="../../../script.js"></script>
+    <script>
+        (() => {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            const state = params.get('state');
+            const error = params.get('error');
+            const title = document.getElementById('callback-title');
+            const copy = document.getElementById('callback-copy');
+            const codeEl = document.getElementById('callback-code');
+            const stateEl = document.getElementById('callback-state');
+
+            stateEl.textContent = state || 'none';
+
+            if (error) {
+                title.textContent = 'Authorization was not completed';
+                copy.textContent = error;
+                codeEl.textContent = 'none';
+                window.localStorage.removeItem('tcl_tiktok_connected');
+                return;
+            }
+
+            if (code) {
+                title.textContent = 'TikTok authorization received';
+                copy.textContent = 'The app received an authorization code. In production, the server exchanges this code for TikTok API tokens before upload.';
+                codeEl.textContent = code.slice(0, 8) + '...';
+                window.localStorage.setItem('tcl_tiktok_connected', 'true');
+                return;
+            }
+
+            title.textContent = 'Missing authorization code';
+            copy.textContent = 'Return to the workspace and start the TikTok connection flow again.';
+            codeEl.textContent = 'none';
+            window.localStorage.removeItem('tcl_tiktok_connected');
+        })();
+    </script>
+</body>
+</html>

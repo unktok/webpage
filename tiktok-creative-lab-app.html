@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Demo | Unktok Creative Lab</title>
+    <meta name="description" content="End-to-end review demo for Unktok Creative Lab TikTok Login Kit, Display API, and Content Posting API upload workflow.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="images/tiktok-creative-lab-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="legal-page review-demo-page">
+    <div class="ambient" aria-hidden="true"></div>
+    <canvas id="life-canvas" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo" aria-label="Unktok home">
+                <img src="images/unktok_logo.svg" alt="" width="120" height="80">
+            </a>
+            <div class="nav-links">
+                <a href="tiktok-creative-lab.html" class="nav-link"><span>Product</span></a>
+                <a href="privacy.html" class="nav-link"><span>Privacy</span></a>
+                <a href="terms.html" class="nav-link"><span>Terms</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="legal-main review-main">
+        <section class="review-hero">
+            <img class="app-icon-large" src="images/tiktok-creative-lab-icon.png" alt="Unktok Creative Lab app icon" width="112" height="112">
+            <div>
+                <span class="eyebrow">
+                    <span class="pulse" aria-hidden="true"></span>
+                    End-to-end review flow
+                </span>
+                <h1>Unktok Creative Lab workspace</h1>
+                <p>Connect a TikTok account, inspect owned video metadata, review one creative asset, then explicitly approve upload.</p>
+            </div>
+        </section>
+
+        <section class="review-grid" aria-label="TikTok integration review demo">
+            <article class="review-panel connection-panel">
+                <div class="panel-head">
+                    <span class="step-kicker">Step 1</span>
+                    <h2>Connect TikTok</h2>
+                </div>
+                <p>Login Kit confirms which TikTok account receives uploads.</p>
+                <div class="connection-card" id="connection-card">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <div>
+                        <strong id="connection-title">Not connected</strong>
+                        <span id="connection-copy">Authorize TikTok before uploading content.</span>
+                    </div>
+                </div>
+                <a class="btn primary" id="connect-button" href="api/auth/tiktok/callback?code=demo_authorization_code&amp;state=review_demo">
+                    Connect TikTok
+                    <span class="pip" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6 H10"/><path d="M7 3 L10 6 L7 9"/></svg>
+                    </span>
+                </a>
+            </article>
+
+            <article class="review-panel">
+                <div class="panel-head">
+                    <span class="step-kicker">Step 2</span>
+                    <h2>Owned video signal</h2>
+                </div>
+                <p>Display API is used only for the authenticated user's own public video metadata.</p>
+                <dl class="signal-list">
+                    <dt>Recent format</dt><dd>Problem hook + hands-on demo</dd>
+                    <dt>Strong CTA</dt><dd>Comment URL for checklist</dd>
+                    <dt>Weak spot</dt><dd>Opening 2 seconds need clearer object framing</dd>
+                </dl>
+            </article>
+
+            <article class="review-panel asset-panel">
+                <div class="panel-head">
+                    <span class="step-kicker">Step 3</span>
+                    <h2>Review asset</h2>
+                </div>
+                <div class="mock-media" aria-label="Selected short-form creative preview">
+                    <span>9:16</span>
+                    <b>UGC creative preview</b>
+                </div>
+                <label class="caption-label" for="caption">Caption</label>
+                <textarea id="caption" rows="4">Testing a 15-second product hook: problem, proof, and one clear CTA. #creativeops #tiktokshop</textarea>
+            </article>
+
+            <article class="review-panel approval-panel">
+                <div class="panel-head">
+                    <span class="step-kicker">Step 4</span>
+                    <h2>Approve upload</h2>
+                </div>
+                <ul class="review-checklist">
+                    <li>Connected account is visible before upload.</li>
+                    <li>User reviews the selected media and caption.</li>
+                    <li>No upload starts until this explicit approval step.</li>
+                </ul>
+                <button class="btn primary" type="button" id="upload-button">
+                    Upload to TikTok
+                    <span class="pip" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6 H10"/><path d="M7 3 L10 6 L7 9"/></svg>
+                    </span>
+                </button>
+                <p class="upload-result" id="upload-result" role="status">Waiting for TikTok connection.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <span class="coord">N 35.6762° &nbsp;·&nbsp; E 139.6503°</span>
+        <span class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+        </span>
+        <span>© 2026 Unktok</span>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        (() => {
+            const connected = window.localStorage.getItem('tcl_tiktok_connected') === 'true';
+            const card = document.getElementById('connection-card');
+            const title = document.getElementById('connection-title');
+            const copy = document.getElementById('connection-copy');
+            const button = document.getElementById('upload-button');
+            const result = document.getElementById('upload-result');
+
+            if (connected) {
+                card.classList.add('connected');
+                title.textContent = '@review_creator connected';
+                copy.textContent = 'Ready to upload a reviewed asset to this TikTok account.';
+                result.textContent = 'Ready for explicit upload approval.';
+            }
+
+            button.addEventListener('click', () => {
+                if (!connected) {
+                    result.textContent = 'Connect TikTok before uploading.';
+                    return;
+                }
+                result.textContent = 'Upload request prepared. In production this calls the Content Posting API upload endpoint after user approval.';
+            });
+        })();
+    </script>
+</body>
+</html>
