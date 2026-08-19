@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="600" viewBox="0 0 1180 600" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="g-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(244,241,234,0.4)"/>
+    </marker>
+    <marker id="g-arrow-lime" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#baff7b"/>
+    </marker>
+    <style>
+      .lbl { font-size: 12.1px; fill: #f4f1ea; text-anchor: middle; }
+      .hdr { font-size: 11.5px; letter-spacing: 3px; text-anchor: middle;
+             font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .chk { font-size: 10px; letter-spacing: 1.4px; text-anchor: middle; fill: rgba(186,255,123,0.75);
+             font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .edge { fill: none; stroke: rgba(244,241,234,0.20); stroke-width: 1.2; }
+    </style>
+  </defs>
+
+  <rect width="1180" height="600" fill="#08080b"/>
+
+  <text x="40" y="46" fill="rgba(244,241,234,0.38)" font-size="12.5" letter-spacing="3.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">ONE REVIEW, DECOMPOSED</text>
+
+  <!-- column headers -->
+  <text class="hdr" x="289" y="88" fill="rgba(127,255,225,0.6)">READ</text>
+  <text class="hdr" x="475" y="88" fill="rgba(127,255,225,0.6)">DECOMPOSE</text>
+  <text class="hdr" x="665" y="88" fill="rgba(184,157,255,0.6)">SITUATE</text>
+  <text class="hdr" x="855" y="88" fill="rgba(255,158,199,0.6)">STRESS-TEST</text>
+  <text class="hdr" x="1050" y="88" fill="rgba(186,255,123,0.6)">ASSEMBLE</text>
+
+  <!-- ===== edges ===== -->
+  <path class="edge" d="M 180 294 L 208 294" marker-end="url(#g-arrow)"/>
+
+  <path class="edge" d="M 364 294 C 384 294 380 190 400 190"/>
+  <path class="edge" d="M 364 294 L 400 294"/>
+  <path class="edge" d="M 364 294 C 384 294 380 398 400 398"/>
+
+  <path class="edge" d="M 550 190 C 572 190 568 138 590 138"/>
+  <path class="edge" d="M 550 190 C 572 190 568 242 590 242"/>
+  <path class="edge" d="M 550 294 C 572 294 568 242 590 242"/>
+  <path class="edge" d="M 550 294 C 572 294 568 346 590 346"/>
+  <path class="edge" d="M 550 294 C 572 294 568 450 590 450"/>
+  <path class="edge" d="M 550 398 C 572 398 568 450 590 450"/>
+  <path class="edge" d="M 550 398 C 572 398 568 242 590 242"/>
+
+  <path class="edge" d="M 740 138 C 762 138 758 242 780 242"/>
+  <path class="edge" d="M 740 242 L 780 242"/>
+  <path class="edge" d="M 740 242 C 762 242 758 346 780 346"/>
+  <path class="edge" d="M 740 346 L 780 346"/>
+  <path class="edge" d="M 740 450 C 762 450 758 346 780 346"/>
+
+  <path d="M 930 242 C 952 242 948 294 970 294" fill="none" stroke="rgba(186,255,123,0.45)" stroke-width="1.4" marker-end="url(#g-arrow-lime)"/>
+  <path d="M 930 346 C 952 346 948 294 970 294" fill="none" stroke="rgba(186,255,123,0.45)" stroke-width="1.4" marker-end="url(#g-arrow-lime)"/>
+
+  <!-- ===== nodes ===== -->
+  <rect x="40" y="270" width="140" height="48" rx="11" fill="#101014" stroke="rgba(244,241,234,0.2)"/>
+  <text class="lbl" x="110" y="299" font-size="13.5">An arXiv paper</text>
+
+  <g>
+    <rect x="214" y="272" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(127,255,225,0.3)"/>
+    <text class="lbl" x="289" y="299">Acquire &amp; parse</text>
+  </g>
+
+  <g>
+    <rect x="400" y="168" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(127,255,225,0.3)"/>
+    <text class="lbl" x="475" y="195">Claims &amp; structure</text>
+    <rect x="400" y="272" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(127,255,225,0.3)"/>
+    <text class="lbl" x="475" y="299">Method &amp; experiments</text>
+    <rect x="400" y="376" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(127,255,225,0.3)"/>
+    <text class="lbl" x="475" y="403">Theory &amp; assumptions</text>
+  </g>
+
+  <g>
+    <rect x="590" y="116" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(184,157,255,0.32)"/>
+    <text class="lbl" x="665" y="143">Prior-art sweep</text>
+    <rect x="590" y="220" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(184,157,255,0.32)"/>
+    <text class="lbl" x="665" y="247">Novelty check</text>
+    <text class="chk" x="665" y="281">&#10003; verified in code</text>
+    <rect x="590" y="324" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(184,157,255,0.32)"/>
+    <text class="lbl" x="665" y="351">Code &amp; reproducibility</text>
+    <rect x="590" y="428" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(184,157,255,0.32)"/>
+    <text class="lbl" x="665" y="455">Comparative analysis</text>
+  </g>
+
+  <g>
+    <rect x="780" y="220" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(255,158,199,0.32)"/>
+    <text class="lbl" x="855" y="247">Adversarial critique</text>
+    <rect x="780" y="324" width="150" height="44" rx="10" fill="#0d0d11" stroke="rgba(255,158,199,0.32)"/>
+    <text class="lbl" x="855" y="351">Consistency audit</text>
+    <text class="chk" x="855" y="385">&#10003; verified in code</text>
+  </g>
+
+  <rect x="970" y="258" width="160" height="72" rx="12" fill="rgba(186,255,123,0.06)" stroke="rgba(186,255,123,0.4)"/>
+  <text class="lbl" x="1050" y="290" font-size="13.5">Findings registry</text>
+  <text class="lbl" x="1050" y="312" font-size="11.5" fill="rgba(244,241,234,0.45)">brief &#183; report &#183; roadmap</text>
+
+  <!-- ===== annotations ===== -->
+  <line x1="40" y1="514" x2="1140" y2="514" stroke="rgba(244,241,234,0.10)" stroke-width="1"/>
+  <text x="40" y="546" fill="rgba(244,241,234,0.6)" font-size="14.5">Roughly three dozen narrow questions, run in dependency order &#8212; the ones that don&#8217;t depend on each other run at the same time.</text>
+  <text x="40" y="572" fill="rgba(244,241,234,0.42)" font-size="13.5">Judgment is the model&#8217;s. Anything mechanically checkable &#8212; does that citation exist, does that number match the table it came from &#8212; is checked by code.</text>
+</svg>

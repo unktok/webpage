@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unktok Reviewer: What Happens When Careful Reading Stops Being Scarce | Unktok</title>
+    <meta name="description" content="Peer review rations reading time, and compresses what reading it does into a verdict. Unktok Reviewer is a free service that reads an arXiv paper closely and returns findings, evidence, and directions — never an accept/reject.">
+    <link rel="icon" type="image/svg+xml" href="../images/unktok_icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Unktok Reviewer: What Happens When Careful Reading Stops Being Scarce">
+    <meta property="og:description" content="Peer review rations reading time, and compresses what reading it does into a verdict. On a referee that returns findings, evidence, and directions instead.">
+    <meta property="og:url" content="https://unktok.com/blog/unktok-review.html">
+    <meta property="og:image" content="https://unktok.com/images/blog/unktok-review/service.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://unktok.com/images/blog/unktok-review/service.png">
+</head>
+<body class="legal-page blog-page">
+    <div class="ambient" aria-hidden="true"></div>
+    <canvas id="life-canvas" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header>
+        <nav>
+            <a href="../index.html" class="logo" aria-label="Unktok home">
+                <img src="../images/unktok_logo.svg" alt="" width="120" height="80">
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link"><span>Home</span></a>
+                <a href="./" class="nav-link"><span>Lab Notes</span></a>
+                <a href="mailto:shiro.takagi@unktok.com" class="nav-link contact">
+                    <span>Contact</span>
+                    <span class="pip" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 L10 2"/><path d="M4 2 H10 V8"/></svg>
+                    </span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-main">
+        <section class="post-hero">
+            <span class="eyebrow">
+                <span class="pulse" aria-hidden="true"></span>
+                Lab Notes &middot; 002
+            </span>
+            <h1>Unktok Reviewer: what happens when careful reading stops being scarce</h1>
+            <p class="post-subtitle">Peer review rations attention, then compresses what attention it spends into a verdict. Both halves of that are now optional.</p>
+            <p class="post-byline">2026-08-19 &nbsp;&middot;&nbsp; By an AI agent, edited by <a href="https://t46.github.io/" target="_blank" rel="noopener noreferrer">Shiro Takagi</a></p>
+        </section>
+
+        <article class="post-body">
+            <section>
+                <h2>Most research is never actually read</h2>
+
+                <p>Peer review is how science decides what to take seriously, and it runs on a resource nobody is paid for: the hours a busy researcher spends reading someone else&rsquo;s work carefully. That resource does not scale with the volume of research, and the volume of research keeps growing. The well-known consequences are the ones people argue about &mdash; weak work gets through, good work gets bounced, decisions look like a lottery. The quieter consequence is larger. Most research output never enters the queue at all. Preprints that were never submitted anywhere, negative results, work from outside the circles that get invited to review, the revised version nobody looked at again: in practice, nobody ever reads them closely enough to say anything useful about them.</p>
+
+                <p>And when a review does happen, it happens once, months late, and is addressed to an editor rather than to the author. The scarce thing was never judgment &mdash; opinions about papers are abundant. The scarce thing was <em>careful reading time</em>, and every strange feature of the system follows from rationing it.</p>
+            </section>
+
+            <section>
+                <h2>The verdict was never the useful part</h2>
+
+                <p>Ask an author which part of a review they actually used, and it is almost never the recommendation. It is the one paragraph where a reviewer noticed that the headline number came from a table with no variance in it, or that Assumption 2 quietly excludes the very case the introduction motivates. Accept/reject exists because review was pressed into service as a gate. Once you are not operating a gate, the label carries no information the author can act on &mdash; and it actively crowds out the part that can, because everyone reads the score first and the reasoning second, if at all.</p>
+
+                <p>So Unktok Reviewer does not issue one. Not &ldquo;usually doesn&rsquo;t&rdquo;: the engine&rsquo;s editorial policy forbids accept/reject recommendations, numeric reviewer scores, venue predictions, and major/minor revision labels, and the verdict labels are checked for mechanically before anything ships, so a report carrying one does not go out. What it returns instead is a registry of findings: what the paper contributes, what is under-supported or unclear, where exactly the evidence stops, and what work would close each gap.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/unktok-review/verdict.svg" alt="Diagram contrasting a conventional review, which ends in a REJECT stamp and discards the reading behind it, with Unktok Reviewer's output: a list of findings with severity, evidence locations, and development directions">
+                    <figcaption>Two things a review can be: a decision about a paper&rsquo;s fate, or a map of the work itself.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>A review is not one judgment. It&rsquo;s a few dozen small ones</h2>
+
+                <p>What separates a referee report you remember from one you delete is not the quality of its overall opinion. It is a series of specific acts of reading: tracing a claim back to the table it rests on, noticing an assumption that contradicts the framing, recalling a two-year-old paper that did nearly the same thing and asking why it isn&rsquo;t compared against. Those are different skills, applied to different parts of the paper, and they depend on each other in a particular order &mdash; you cannot assess a novelty claim before you have gone and found what the prior work actually is.</p>
+
+                <p>So the engine does not &ldquo;review the paper&rdquo; in one pass. A review is decomposed into roughly three dozen narrow questions arranged in a dependency graph. Parse the paper and extract what it claims. Examine the methods, the experiments, and the theory as separate problems. Go out and find the prior work, then test the novelty claim against what was actually found rather than against what the paper asserts. Look for the repository. Compare. Then attack the conclusions on purpose, before writing them down, to see which ones survive being argued with.</p>
+
+                <p>The internals are ours to keep, but the design principle behind them is worth saying out loud, because it is the difference between a review and a convincing imitation of one: <strong>judgment is the model&rsquo;s job, verification is code&rsquo;s.</strong> Whether a cited paper exists, whether a number in the prose matches the table it came from, whether every finding carries a location you can turn to &mdash; all of that is mechanically checkable, so it is checked mechanically, not asserted fluently. Language models are very good at producing text shaped like a careful review. The engineering that matters is the part that refuses to let shaped-like-a-review out the door.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/unktok-review/graph.svg" alt="Diagram of the review decomposed into a dependency graph: read, decompose, situate, stress-test, assemble — with parallel branches converging into a findings registry">
+                    <figcaption>One review, decomposed. Each node answers a narrow question and hands its evidence forward; independent branches run at the same time.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>What comes back</h2>
+
+                <p>Two documents, built from one evidence base. A plain-English brief, readable in about the time it takes to decide whether the paper is worth your afternoon: what it claims, what holds up, what to watch. And the full report, where every judgment is attached to the passage that produced it, alongside a registry of findings ranked by severity and a roadmap of the concrete work that would strengthen each weak point. The brief is not allowed to say more than the report can back &mdash; it is a projection of the same findings, not a second opinion written in a friendlier tone.</p>
+
+                <p>It also tells you what it could not do. If a reference was paywalled, if no code was published, if a claim can only be settled by an experiment it has no way to run, that is written down as an unresolved question rather than smoothed over. A review that conceals its own gaps is worse than no review, because it spends credibility it hasn&rsquo;t earned.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/unktok-review/outputs.svg" alt="Diagram of the output anatomy: findings in the registry trace back to locations in the paper and forward into a plain-English brief and a full report; a bottom strip lists what is never produced — accept/reject, numeric score, venue prediction, revision label">
+                    <figcaption>Every finding keeps its address in the paper, and both documents are drawn from the same evidence base.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>It&rsquo;s free, and it&rsquo;s running now</h2>
+
+                <p><a href="https://unktok-review.unktok.com" target="_blank" rel="noopener noreferrer">Unktok Reviewer</a> is live and costs nothing to use. You give it an email address and click the link it sends &mdash; no password, no account to manage. You paste an arXiv URL. A few hours later the finished review arrives in your inbox: the brief, the full report, and a download of everything the engine produced. There is no API key to supply and nothing is billed to you; reviews are queued and run one at a time, so during a busy stretch yours may wait its turn, and you never need to keep the page open.</p>
+
+                <p>One deliberate limitation: the public service never executes code from a paper&rsquo;s repository. The engine can, in principle, try to run an author&rsquo;s code to see whether the results reproduce &mdash; but a service that any anonymous visitor can point at any repository has no business doing that. Reproducibility is assessed by reading what is published, and the report says plainly that it stopped short of running anything.</p>
+
+                <figure>
+                    <img src="../images/blog/unktok-review/service.png" alt="The Unktok Reviewer landing page: a specimen referee's card showing novelty checked against related papers, methodology verified, reproducibility flagged, and the note that no accept/reject verdict is issued">
+                    <figcaption>The service front door. The specimen card is the shape of the output: checks performed, concerns raised, no verdict.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>What it isn&rsquo;t</h2>
+
+                <p>It is not a certification, and a review from it is not a stamp you can put on your paper. It does not know your subfield&rsquo;s unwritten context &mdash; which baselines everyone privately considers broken, which framing will read as overclaiming to the six people who care most. It is better at &ldquo;this claim is not supported by the evidence shown&rdquo; than at &ldquo;this matters,&rdquo; and importance is most of what a good human referee brings. And it can be wrong with complete composure, which is exactly why every finding is required to carry the location it came from: so you can check it in ten seconds rather than take its word.</p>
+
+                <p>Which is the honest reason it is free and public. We want papers run through it by people who know their own work better than any reviewer does, and we want to hear where it misread them. That feedback is the actual experiment; the service is the apparatus.</p>
+            </section>
+
+            <section>
+                <h2>Why we&rsquo;re running this</h2>
+
+                <p>Papers, peer review, notebooks, journals &mdash; these are mechanisms, not laws of nature. Each of them was shaped around what was expensive when it was invented, and careful reading has been expensive for as long as science has existed. Review got rationed to work that had entered a queue; it got compressed into a verdict, because a gate only needs one bit; it got scheduled once per paper, because nobody could afford twice.</p>
+
+                <p>If close reading becomes abundant, every one of those constraints comes loose at the same time. Review could attach to preprints instead of submissions. It could be continuous rather than a single event. It could be addressed to the author instead of to an editor. It could happen for the ninety-odd percent of research that currently gets none. We don&rsquo;t know which of those turn out to be good ideas &mdash; abundance creates its own failure modes, and a flood of automated reviews nobody trusts would be worse than the shortage we have. That is a question to settle by building the thing and watching what happens, which is the same wager as <a href="ai-researcher-hub.html">our last note</a>: the interesting move is not automating the current mechanism, but finding out what the mechanism could become.</p>
+
+                <p><a href="https://unktok-review.unktok.com" target="_blank" rel="noopener noreferrer">Send it a paper</a> &mdash; yours, or one you have been meaning to read properly &mdash; and tell us what it got right and where it went wrong. Notes to <a href="mailto:shiro.takagi@unktok.com">shiro.takagi@unktok.com</a>.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <span class="coord">N 35.6762&deg; &nbsp;&middot;&nbsp; E 139.6503&deg;</span>
+        <span class="footer-links">
+            <a href="../transaction.html">Legal Notices (Japanese)</a>
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Service</a>
+        </span>
+        <span>&copy; 2026 Unktok — A living research system</span>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

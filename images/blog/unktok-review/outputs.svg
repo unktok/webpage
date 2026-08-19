@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="640" viewBox="0 0 1180 640" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="o-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(127,255,225,0.7)"/>
+    </marker>
+    <style>
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .trace { fill: none; stroke-width: 1.2; opacity: 0.55; }
+    </style>
+  </defs>
+
+  <rect width="1180" height="640" fill="#08080b"/>
+
+  <!-- ===== the paper ===== -->
+  <text class="mono" x="50" y="60" fill="rgba(244,241,234,0.38)" font-size="12" letter-spacing="3">THE PAPER</text>
+  <rect x="50" y="80" width="190" height="404" rx="12" fill="#0d0d11" stroke="rgba(244,241,234,0.14)"/>
+
+  <g fill="rgba(244,241,234,0.10)">
+    <rect x="70" y="106" width="150" height="6" rx="3"/>
+    <rect x="70" y="122" width="126" height="6" rx="3"/>
+    <rect x="70" y="138" width="150" height="6" rx="3"/>
+    <rect x="70" y="180" width="112" height="6" rx="3"/>
+    <rect x="70" y="222" width="150" height="6" rx="3"/>
+    <rect x="70" y="238" width="138" height="6" rx="3"/>
+    <rect x="70" y="296" width="150" height="6" rx="3"/>
+    <rect x="70" y="312" width="96" height="6" rx="3"/>
+    <rect x="70" y="370" width="150" height="6" rx="3"/>
+    <rect x="70" y="412" width="132" height="6" rx="3"/>
+    <rect x="70" y="428" width="150" height="6" rx="3"/>
+    <rect x="70" y="452" width="108" height="6" rx="3"/>
+  </g>
+
+  <rect x="70" y="156" width="150" height="8" rx="4" fill="#ff9ec7" opacity="0.85"/>
+  <rect x="70" y="198" width="150" height="8" rx="4" fill="#f6c87a" opacity="0.85"/>
+  <rect x="70" y="272" width="150" height="8" rx="4" fill="#b89dff" opacity="0.85"/>
+  <rect x="70" y="346" width="150" height="8" rx="4" fill="#baff7b" opacity="0.85"/>
+
+  <text class="mono" x="50" y="512" fill="rgba(244,241,234,0.32)" font-size="11.5" letter-spacing="1.4">every finding keeps its address</text>
+
+  <!-- ===== traces ===== -->
+  <path class="trace" d="M 226 160 C 300 160 300 196 360 196" stroke="#ff9ec7"/>
+  <path class="trace" d="M 226 202 C 300 202 300 256 360 256" stroke="#f6c87a"/>
+  <path class="trace" d="M 226 276 C 300 276 300 316 360 316" stroke="#b89dff"/>
+  <path class="trace" d="M 226 350 C 300 350 300 376 360 376" stroke="#baff7b"/>
+
+  <!-- ===== findings registry ===== -->
+  <rect x="360" y="120" width="280" height="330" rx="12" fill="#101014" stroke="rgba(244,241,234,0.18)"/>
+  <text class="mono" x="384" y="156" fill="rgba(244,241,234,0.5)" font-size="11.5" letter-spacing="2.6">FINDINGS REGISTRY</text>
+  <line x1="384" y1="170" x2="616" y2="170" stroke="rgba(244,241,234,0.10)"/>
+
+  <circle cx="390" cy="196" r="4.5" fill="#ff9ec7"/>
+  <text x="408" y="193" fill="#f4f1ea" font-size="13.5">Unsupported headline gain</text>
+  <text class="mono" x="408" y="211" fill="rgba(244,241,234,0.34)" font-size="10.5" letter-spacing="1.2">HIGH &#183; &#167;4.2 &#183; Table 3</text>
+
+  <circle cx="390" cy="256" r="4.5" fill="#f6c87a"/>
+  <text x="408" y="253" fill="#f4f1ea" font-size="13.5">Assumption excludes the case</text>
+  <text class="mono" x="408" y="271" fill="rgba(244,241,234,0.34)" font-size="10.5" letter-spacing="1.2">MED &#183; &#167;3.1 &#183; Eq. 7</text>
+
+  <circle cx="390" cy="316" r="4.5" fill="#b89dff"/>
+  <text x="408" y="313" fill="#f4f1ea" font-size="13.5">Nearest baseline uncompared</text>
+  <text class="mono" x="408" y="331" fill="rgba(244,241,234,0.34)" font-size="10.5" letter-spacing="1.2">MED &#183; &#167;5 &#183; ref. [18]</text>
+
+  <circle cx="390" cy="376" r="4.5" fill="#baff7b"/>
+  <text x="408" y="373" fill="#f4f1ea" font-size="13.5">Contribution that holds up</text>
+  <text class="mono" x="408" y="391" fill="rgba(244,241,234,0.34)" font-size="10.5" letter-spacing="1.2">KEEP &#183; &#167;6.3</text>
+
+  <line x1="384" y1="416" x2="616" y2="416" stroke="rgba(244,241,234,0.10)"/>
+  <text class="mono" x="384" y="437" fill="rgba(244,241,234,0.42)" font-size="11" letter-spacing="1.2">one shared evidence base</text>
+
+  <!-- ===== outputs ===== -->
+  <path d="M 640 256 C 686 256 674 200 716 200" fill="none" stroke="rgba(127,255,225,0.55)" stroke-width="1.4" marker-end="url(#o-arrow)"/>
+  <path d="M 640 316 C 686 316 674 380 716 380" fill="none" stroke="rgba(127,255,225,0.55)" stroke-width="1.4" marker-end="url(#o-arrow)"/>
+
+  <rect x="724" y="128" width="406" height="146" rx="12" fill="#0d0d11" stroke="rgba(127,255,225,0.28)"/>
+  <text class="mono" x="752" y="164" fill="#7fffe1" font-size="11.5" letter-spacing="2.6">PLAIN-ENGLISH BRIEF</text>
+  <text x="752" y="196" fill="rgba(244,241,234,0.68)" font-size="14.5">What the paper claims, what survives scrutiny, and</text>
+  <text x="752" y="218" fill="rgba(244,241,234,0.68)" font-size="14.5">what to watch &#8212; readable in the time it takes to</text>
+  <text x="752" y="240" fill="rgba(244,241,234,0.68)" font-size="14.5">decide whether to read the paper at all.</text>
+
+  <rect x="724" y="306" width="406" height="146" rx="12" fill="#0d0d11" stroke="rgba(184,157,255,0.28)"/>
+  <text class="mono" x="752" y="342" fill="#b89dff" font-size="11.5" letter-spacing="2.6">FULL REPORT &#43; ROADMAP</text>
+  <text x="752" y="374" fill="rgba(244,241,234,0.68)" font-size="14.5">The long form: every judgment attached to the</text>
+  <text x="752" y="396" fill="rgba(244,241,234,0.68)" font-size="14.5">passage that produced it, plus the concrete work</text>
+  <text x="752" y="418" fill="rgba(244,241,234,0.68)" font-size="14.5">that would strengthen each weak point.</text>
+
+  <text class="mono" x="724" y="490" fill="rgba(244,241,234,0.32)" font-size="11.5" letter-spacing="1.4">the brief never says more than the report can back</text>
+
+  <!-- ===== never produced ===== -->
+  <line x1="50" y1="540" x2="1130" y2="540" stroke="rgba(244,241,234,0.10)"/>
+  <text class="mono" x="50" y="592" fill="rgba(244,241,234,0.42)" font-size="11.5" letter-spacing="2.6">NEVER PRODUCED</text>
+
+  <g opacity="0.55">
+    <rect x="240" y="570" width="150" height="34" rx="17" fill="none" stroke="rgba(244,241,234,0.2)"/>
+    <text class="mono" x="315" y="592" fill="rgba(244,241,234,0.6)" font-size="12" text-anchor="middle">accept / reject</text>
+    <line x1="256" y1="587" x2="374" y2="587" stroke="#ff9ec7" stroke-width="1.4"/>
+
+    <rect x="406" y="570" width="150" height="34" rx="17" fill="none" stroke="rgba(244,241,234,0.2)"/>
+    <text class="mono" x="481" y="592" fill="rgba(244,241,234,0.6)" font-size="12" text-anchor="middle">a numeric score</text>
+    <line x1="422" y1="587" x2="540" y2="587" stroke="#ff9ec7" stroke-width="1.4"/>
+
+    <rect x="572" y="570" width="176" height="34" rx="17" fill="none" stroke="rgba(244,241,234,0.2)"/>
+    <text class="mono" x="660" y="592" fill="rgba(244,241,234,0.6)" font-size="12" text-anchor="middle">a venue prediction</text>
+    <line x1="588" y1="587" x2="732" y2="587" stroke="#ff9ec7" stroke-width="1.4"/>
+
+    <rect x="764" y="570" width="214" height="34" rx="17" fill="none" stroke="rgba(244,241,234,0.2)"/>
+    <text class="mono" x="871" y="592" fill="rgba(244,241,234,0.6)" font-size="12" text-anchor="middle">major / minor revision</text>
+    <line x1="780" y1="587" x2="962" y2="587" stroke="#ff9ec7" stroke-width="1.4"/>
+  </g>
+</svg>

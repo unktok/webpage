@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="660" viewBox="0 0 1180 660" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="a-faint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(244,241,234,0.34)"/>
+    </marker>
+    <marker id="a-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7fffe1"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="660" fill="#08080b"/>
+
+  <!-- divider -->
+  <line x1="590" y1="46" x2="590" y2="614" stroke="rgba(244,241,234,0.10)" stroke-width="1"/>
+
+  <!-- ============================ LEFT ============================ -->
+  <text x="60" y="60" fill="rgba(244,241,234,0.38)" font-size="12.5" letter-spacing="3.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">CONVENTIONAL REVIEW</text>
+
+  <rect x="60" y="90" width="170" height="60" rx="11" fill="#101014" stroke="rgba(244,241,234,0.16)"/>
+  <text x="145" y="126" fill="#f4f1ea" font-size="16" text-anchor="middle">A paper</text>
+
+  <line x1="234" y1="120" x2="292" y2="120" stroke="rgba(244,241,234,0.34)" stroke-width="1.6" marker-end="url(#a-faint)"/>
+
+  <rect x="300" y="90" width="256" height="34" rx="8" fill="#0d0d11" stroke="rgba(244,241,234,0.12)"/>
+  <text x="316" y="112" fill="rgba(244,241,234,0.62)" font-size="11" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">reviewer 1 &#183; 40 min, late at night</text>
+  <rect x="300" y="132" width="256" height="34" rx="8" fill="#0d0d11" stroke="rgba(244,241,234,0.12)"/>
+  <text x="316" y="154" fill="rgba(244,241,234,0.62)" font-size="11" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">reviewer 2 &#183; skimmed the abstract</text>
+  <rect x="300" y="174" width="256" height="34" rx="8" fill="#0d0d11" stroke="rgba(244,241,234,0.12)"/>
+  <text x="316" y="196" fill="rgba(244,241,234,0.62)" font-size="11" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">reviewer 3 &#183; declined, never replied</text>
+
+  <line x1="420" y1="216" x2="420" y2="256" stroke="rgba(244,241,234,0.34)" stroke-width="1.6" marker-end="url(#a-faint)"/>
+
+  <g transform="rotate(-3.5 420 320)">
+    <rect x="300" y="268" width="240" height="104" rx="10" fill="none" stroke="#ff9ec7" stroke-width="2.5" opacity="0.85"/>
+    <text x="420" y="318" fill="#ff9ec7" font-size="30" letter-spacing="7" text-anchor="middle" font-weight="600">REJECT</text>
+    <text x="420" y="348" fill="rgba(255,158,199,0.62)" font-size="11" letter-spacing="1.2" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">6 &#183; 5 &#183; 3 &#8212; major revision</text>
+  </g>
+
+  <text x="60" y="424" fill="rgba(244,241,234,0.66)" font-size="15.5">The deliverable is a decision about the paper&#8217;s</text>
+  <text x="60" y="450" fill="rgba(244,241,234,0.66)" font-size="15.5">fate. The reading that produced it evaporates.</text>
+
+  <line x1="60" y1="492" x2="540" y2="492" stroke="rgba(244,241,234,0.10)" stroke-width="1" stroke-dasharray="2 6"/>
+  <text x="60" y="524" fill="rgba(244,241,234,0.40)" font-size="12.5" letter-spacing="2" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">the doubt on page 7</text>
+  <text x="60" y="550" fill="rgba(244,241,234,0.22)" font-size="12.5" letter-spacing="2" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">the half-formed suggestion</text>
+  <text x="60" y="576" fill="rgba(244,241,234,0.11)" font-size="12.5" letter-spacing="2" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">the experiment nobody asked for</text>
+
+  <!-- ============================ RIGHT ============================ -->
+  <text x="640" y="60" fill="rgba(127,255,225,0.78)" font-size="12.5" letter-spacing="3.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">UNKTOK REVIEWER</text>
+
+  <rect x="640" y="90" width="170" height="60" rx="11" fill="#101014" stroke="rgba(244,241,234,0.16)"/>
+  <text x="725" y="126" fill="#f4f1ea" font-size="16" text-anchor="middle">The same paper</text>
+
+  <line x1="814" y1="120" x2="872" y2="120" stroke="#7fffe1" stroke-width="1.6" opacity="0.6" marker-end="url(#a-cyan)"/>
+  <text x="884" y="116" fill="rgba(244,241,234,0.62)" font-size="13.5">read closely,</text>
+  <text x="884" y="136" fill="rgba(244,241,234,0.62)" font-size="13.5">end to end</text>
+
+  <!-- findings -->
+  <g>
+    <rect x="640" y="182" width="480" height="56" rx="10" fill="#0d0d11" stroke="rgba(244,241,234,0.10)"/>
+    <circle cx="664" cy="210" r="4.5" fill="#ff9ec7"/>
+    <text x="684" y="206" fill="#f4f1ea" font-size="14.5">Headline gain reported without variance or seeds</text>
+    <text x="684" y="226" fill="rgba(244,241,234,0.38)" font-size="11.5" letter-spacing="1.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">&#167;4.2 &#183; Table 3</text>
+    <text x="1100" y="212" fill="#ff9ec7" font-size="10.5" letter-spacing="1.6" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">HIGH</text>
+  </g>
+  <g>
+    <rect x="640" y="248" width="480" height="56" rx="10" fill="#0d0d11" stroke="rgba(244,241,234,0.10)"/>
+    <circle cx="664" cy="276" r="4.5" fill="#f6c87a"/>
+    <text x="684" y="272" fill="#f4f1ea" font-size="14.5">Assumption 2 quietly excludes the motivating case</text>
+    <text x="684" y="292" fill="rgba(244,241,234,0.38)" font-size="11.5" letter-spacing="1.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">&#167;3.1 &#183; Eq. 7 vs. &#167;1 claim</text>
+    <text x="1100" y="278" fill="#f6c87a" font-size="10.5" letter-spacing="1.6" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">MED</text>
+  </g>
+  <g>
+    <rect x="640" y="314" width="480" height="56" rx="10" fill="#0d0d11" stroke="rgba(244,241,234,0.10)"/>
+    <circle cx="664" cy="342" r="4.5" fill="#b89dff"/>
+    <text x="684" y="338" fill="#f4f1ea" font-size="14.5">Closest prior method is cited but never compared against</text>
+    <text x="684" y="358" fill="rgba(244,241,234,0.38)" font-size="11.5" letter-spacing="1.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">&#167;5 &#183; ref. [18], checked</text>
+    <text x="1100" y="344" fill="#b89dff" font-size="10.5" letter-spacing="1.6" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">MED</text>
+  </g>
+  <g>
+    <rect x="640" y="380" width="480" height="56" rx="10" fill="#0d0d11" stroke="rgba(244,241,234,0.10)"/>
+    <circle cx="664" cy="408" r="4.5" fill="#baff7b"/>
+    <text x="684" y="404" fill="#f4f1ea" font-size="14.5">The contribution that actually survives scrutiny</text>
+    <text x="684" y="424" fill="rgba(244,241,234,0.38)" font-size="11.5" letter-spacing="1.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">&#167;6.3 &#183; holds under stress test</text>
+    <text x="1100" y="410" fill="#baff7b" font-size="10.5" letter-spacing="1.6" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">KEEP</text>
+  </g>
+
+  <line x1="880" y1="446" x2="880" y2="478" stroke="rgba(127,255,225,0.5)" stroke-width="1.6" marker-end="url(#a-cyan)"/>
+
+  <rect x="640" y="486" width="480" height="86" rx="11" fill="rgba(127,255,225,0.045)" stroke="rgba(127,255,225,0.28)"/>
+  <text x="664" y="518" fill="#7fffe1" font-size="12.5" letter-spacing="2.4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">WHERE TO TAKE IT NEXT</text>
+  <text x="664" y="546" fill="rgba(244,241,234,0.66)" font-size="14">The three experiments that would turn the strongest</text>
+  <text x="664" y="566" fill="rgba(244,241,234,0.66)" font-size="14">claim from plausible into supported.</text>
+
+  <text x="640" y="612" fill="rgba(244,241,234,0.5)" font-size="14">No verdict &#8212; a map of the work: what holds, what doesn&#8217;t, what to do.</text>
+</svg>

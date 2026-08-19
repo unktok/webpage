@@ -1437,6 +1437,25 @@ footer a:hover {
   }
 }
 
+/* Wide schematics: scroll rather than shrink to illegibility on narrow screens */
+@media (max-width: 720px) {
+  .post-body figure.wide {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .post-body figure.wide img {
+    width: 860px;
+    max-width: none;
+  }
+
+  .post-body figure.wide figcaption::after {
+    content: " (scroll to see the whole diagram)";
+    color: rgba(244, 241, 234, 0.24);
+  }
+}
+
 /* Calmer ambience for long-form reading on blog pages */
 body.blog-page #life-canvas {
   opacity: 0.3;
