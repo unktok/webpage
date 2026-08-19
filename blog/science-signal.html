@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIENCE SIGNAL: A Country That Measures Its Science System and Cannot See It | Unktok</title>
+    <meta name="description" content="Japan publishes an enormous amount about its own research system — across Excel tables, disappearing PDFs, and bulk CSV dumps that are never joined. SCIENCE SIGNAL assembles them into one observable surface, and refuses to draw anything it did not measure.">
+    <link rel="icon" type="image/svg+xml" href="../images/unktok_icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="SCIENCE SIGNAL: A Country That Measures Its Science System and Cannot See It">
+    <meta property="og:description" content="The numbers describing Japanese science are all public, and none of them are next to each other. On assembly as the missing step, and on refusing to draw what you did not measure.">
+    <meta property="og:url" content="https://unktok.com/blog/science-signal.html">
+    <meta property="og:image" content="https://unktok.com/images/blog/science-signal/observatory.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://unktok.com/images/blog/science-signal/observatory.png">
+</head>
+<body class="legal-page blog-page">
+    <div class="ambient" aria-hidden="true"></div>
+    <canvas id="life-canvas" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header>
+        <nav>
+            <a href="../index.html" class="logo" aria-label="Unktok home">
+                <img src="../images/unktok_logo.svg" alt="" width="120" height="80">
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link"><span>Home</span></a>
+                <a href="./" class="nav-link"><span>Lab Notes</span></a>
+                <a href="mailto:shiro.takagi@unktok.com" class="nav-link contact">
+                    <span>Contact</span>
+                    <span class="pip" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 L10 2"/><path d="M4 2 H10 V8"/></svg>
+                    </span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-main">
+        <section class="post-hero">
+            <span class="eyebrow">
+                <span class="pulse" aria-hidden="true"></span>
+                Lab Notes &middot; 003
+            </span>
+            <h1>SCIENCE SIGNAL: a country that measures its science system, and cannot see it</h1>
+            <p class="post-subtitle">Japan publishes an enormous amount about its own research system. Almost none of it is ever put side by side. The missing step was never collection &mdash; it was assembly.</p>
+            <p class="post-byline">2026-08-19 &nbsp;&middot;&nbsp; By an AI agent, edited by <a href="https://t46.github.io/" target="_blank" rel="noopener noreferrer">Shiro Takagi</a></p>
+        </section>
+
+        <article class="post-body">
+            <section>
+                <h2>The data is not missing. It is unassembled</h2>
+
+                <p>If you want to know how much Japan spends on research, how many doctorates it produces, where the money goes after it leaves a ministry, or whether the targets in the national science plan are being met, the answer is already public. It is in the 192 Excel tables NISTEP publishes each year. It is in the Cabinet Office&rsquo;s science and technology budget PDFs. It is in the bulk CSV dump from the administrative project review system, which lists every government contract, including the losing bid counts. It is in e-Stat, in OECD&rsquo;s SDMX endpoints, in OpenAlex.</p>
+
+                <p>What does not exist is any place where those numbers sit next to each other. Each source is published on its own schedule, in its own format, under its own definitions, by an organization with no particular reason to make it join cleanly with anyone else&rsquo;s. So the practical situation is that a country which measures its research system in extraordinary detail cannot, in any ordinary sense, look at it.</p>
+
+                <p>This has a cost that never shows up on anyone&rsquo;s budget. Every university research administrator who wants to know where funding is heading rebuilds a fragment of the same picture, by hand, from the same ministry pages. Every journalist starts over. Every policy researcher starts over. The work is duplicated across hundreds of desks and thrown away each time, because nobody&rsquo;s reconstruction is durable enough to hand to anyone else.</p>
+
+                <p><a href="https://science-signal.pages.dev" target="_blank" rel="noopener noreferrer">SCIENCE SIGNAL</a> is our attempt at doing that assembly once, in the open, and keeping it running.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/science-signal/observatory.png" alt="The SCIENCE SIGNAL home page: a dark particle field behind the Japanese title, with four instrument readings across the bottom — R&D as 3.62% of GDP, 158,000 papers per year, 15,744 doctoral entrants, 31 policy signals — each labelled with its year and source">
+                    <figcaption>The front page. Four readings, each carrying the year it refers to and the body that published it.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>Nineteen targets, eight of them observable</h2>
+
+                <p>Japan&rsquo;s 7th Science, Technology and Innovation Basic Plan runs from 2026 to 2030 and sets 19 numerical indicators: research strength, industrial growth, investment. Each has a target. It is exactly the kind of thing a dashboard should be able to render.</p>
+
+                <p>We tried to attach every one of the 19 to a public statistical series that could actually be tracked over time. Eight could be measured directly &mdash; a primary source exists whose definition matches the indicator. Ten could only be approximated, by a series that measures something adjacent under a different definition: full-time-equivalent research hours surveyed for a broader population than the indicator targets, an AI-paper ranking computed from a different corpus with a different counting method. And one could not be observed at all.</p>
+
+                <p>That last one asks for the number of local governments running interoperable, data-linked smart city services, with a target of 180. Selection lists are published year by year, but no cumulative machine-readable series exists that corresponds to the target. So a national plan carries a numerical goal whose progress cannot be read from public statistics by anyone outside the process. We show it as unmeasured, because that is what it is.</p>
+
+                <p>We want to be careful about what this does and does not mean. It is not evidence that the plan is failing, and each of the ten proxies is a reasonable stand-in that a specialist would accept with the caveat attached. It is evidence about the measurement system: setting a target and publishing a series that tracks it are separate acts, and in Japan the second one lags the first badly enough that roughly half of a national plan&rsquo;s indicators cannot be independently followed without approximation.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/science-signal/indicators.png" alt="The 19 indicators chapter: a row of nineteen small squares colour-coded by observability, a legend reading 8 directly measured, 10 proxy only, 1 unmeasured, and a grid of indicator cards each showing current value, target, and a badge marking it as direct or proxy">
+                    <figcaption>Nineteen squares, one per indicator, coloured by whether we can actually watch it. Each card carries its badge: measured, or proxy with the definitional gap spelled out.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>What turns up once the numbers are side by side</h2>
+
+                <p>None of what follows is a discovery in the sense of new data. Each figure was already published. They are simply things nobody had put in the same frame.</p>
+
+                <p>Index every major country&rsquo;s doctorate output to its own year-2000 level and Japan is the only one that ends up below where it started: 95 against China&rsquo;s 326, South Korea&rsquo;s 287, the United States&rsquo; 238. In absolute terms, South Korea awarded 17,673 doctorates in 2023 against Japan&rsquo;s 15,345 in 2022, with well under half the population. Meanwhile Japan spends 3.62% of GDP on R&amp;D, among the highest ratios in the world. A country can hold its research spending near the top of the table and quietly stop producing researchers, and the two facts live in different publications, so the tension is never forced.</p>
+
+                <figure>
+                    <img src="../images/blog/science-signal/doctorates.png" alt="Line chart of doctorate output indexed to 2000 = 100 for seven countries: China rises to 326, Korea 287, US 238, UK 209, Germany 102, France 100, while Japan's highlighted line ends at 95 — the only one below its starting level">
+                    <figcaption>Doctorate output, each country indexed to its own year 2000. Japan&rsquo;s line is the flat one.</figcaption>
+                </figure>
+
+                <p>A second example, from the contracts data. The administrative project review system publishes bidder counts, so a single-bidder rate is computable. Among government contracts eligible for competition in FY2024, 49.9% drew exactly one bidder. Among the science and technology subset, 58.1% did &mdash; 4,151 out of 7,141. Research procurement is <em>less</em> competitive than government procurement in general. That figure has never, as far as we can tell, been reported, because computing it means joining the contract dump against the Cabinet Office&rsquo;s list of science and technology projects, and no published dataset does that join for you.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/science-signal/contracts.png" alt="The contract transparency chapter: two panels comparing single-bidder rates — 58.1% for science and technology contracts against 49.9% for all government contracts — above a histogram of winning-bid ratios">
+                    <figcaption>Single-bidder rates, science and technology contracts against the government-wide baseline, FY2024.</figcaption>
+                </figure>
+
+                <p>We would rather these findings be checked than believed. Both are reproducible from the pipelines in the repository, and both carry the definitional caveats that make them narrower than a headline would suggest &mdash; the contract figure covers only contracts with at least one recorded bidder, and the doctorate series uses each country&rsquo;s own academic-year conventions.</p>
+            </section>
+
+            <section>
+                <h2>Assembly is the whole job, and it is uglier than it sounds</h2>
+
+                <p>Sixteen pipelines feed the site. Some are pleasant: OECD and OpenAlex have real APIs. Most are not. The Cabinet Office&rsquo;s budget PDFs stop resolving a few years after publication, so the system accumulates each edition under a fiscal-year key and keeps its own copy &mdash; the archive has to be built as a side effect, because the primary source is not one. Several indicators are transcribed by hand from documents where the numbers are not text at all. The Ministry of Education&rsquo;s international research exchange survey publishes a 32-year time series that exists only as pixels inside a chart image; we transcribed it independently more than once and cross-checked the result against year-on-year changes stated in the accompanying reports, and the site labels it as a manual transcription so a reader can weigh it accordingly.</p>
+
+                <p>Parsed values are verified against figures stated in prose in the same source before they are accepted, which is how you catch a column misalignment that would otherwise become a confident chart. Series that update annually run manually and are documented as such; only the daily policy feed and the weekly indicator refresh run unattended. This is not elegant, and we are not going to pretend it is. It is what the material demands.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/science-signal/assembly.svg" alt="Diagram: on the left, six source cards in incompatible formats — Excel tables, expiring PDFs, bulk CSV, plan documents, APIs, and one survey whose numbers exist only as pixels in a chart; in the middle, an assembly stage that reconciles units, verifies parsed values, archives disappearing editions, and labels each series direct, proxy, or unmeasured; on the right, one surface with five sections, and a dashed arrow returning from it to the sources">
+                    <figcaption>The shape of the work. The step in the middle is the one nobody is funded to do, and the dashed arrow back is the part that makes it trustworthy.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>Don&rsquo;t draw what you didn&rsquo;t measure</h2>
+
+                <p>A chart is more persuasive than the table behind it, which means a chart has to be more honest than the table behind it. That obligation gets heavier the better the visualization looks, and this one is designed to look good.</p>
+
+                <p>So the site runs on one editorial rule, and it is the site&rsquo;s tagline: <strong>we do not draw what we have not measured.</strong> In practice that means an approximation is labelled an approximation with the definitional gap written out beside it, not silently promoted to a measurement. An unmeasured indicator is shown as unmeasured rather than dropped from the grid &mdash; the absence is information, and deleting it would make the plan look more trackable than it is. Every chart carries its source, its survey year, and its counting method. Every page ends with a provenance ledger listing which primary sources it draws on and whether each connection is currently live. Where a diagram shows relationships rather than quantities, it says so, so that nobody reads the width of a line as a number of yen.</p>
+
+                <p>The rule costs something. It rules out the seamless dashboard where every tile is populated and confident, and it means our most striking claims come wrapped in qualifications. We think that is the correct trade for a site about a national research system, where the failure mode of over-confident visualization is that someone cites it.</p>
+            </section>
+
+            <section>
+                <h2>What it isn&rsquo;t</h2>
+
+                <p>It is not an official source, and it is not a substitute for one. Every figure links back to the ministry, agency, or database it came from, and where they disagree with us, they are right and we have a bug.</p>
+
+                <p>It is not an evaluation. The indicators exist to track national policy, and applying them to individual researchers or institutions is a misuse the plan itself warns against. It is not complete: it covers what we could source and verify, which leaves out large parts of the system &mdash; regional research capacity, most of the private sector&rsquo;s internal picture, anything that is genuinely not published.</p>
+
+                <p>And it is not neutral about its own gaps. When a series stops, or a definition changes mid-stream, or a number had to be read off a picture, the site says so in the place where you would otherwise have trusted it.</p>
+            </section>
+
+            <section>
+                <h2>Why we&rsquo;re running this</h2>
+
+                <p>Our previous two notes were about mechanisms of science that could be different from how they are: <a href="ai-researcher-hub.html">publishing the research trajectory</a> instead of the reconstructed summary, and <a href="unktok-review.html">reviewing a paper</a> without issuing a verdict. This one is about the layer underneath. Metascience &mdash; the study of how research actually works &mdash; needs its object to be observable. You cannot ask whether a funding instrument produced better science, or whether a doctoral policy worked, in a system whose own numbers have never been joined.</p>
+
+                <p>The way a country accounts for its research is a mechanism too, and like the others it was shaped by what was expensive when it was built. Publishing a PDF was what a ministry could afford in 2003; joining a hundred of them was not something anyone could do cheaply, so nobody was assigned to. That constraint has now moved. The assembly that used to require a standing institution is a few thousand lines of Python and a scheduled job, which is a small enough thing that a one-person company can simply do it and leave the result running.</p>
+
+                <p>What we do not know is whether an observable national research system changes anything. Perhaps the people who most need this already have their own spreadsheets. Perhaps making the single-bidder rate visible does nothing at all. That is what the next year is for: the site is live, the code is <a href="https://github.com/t46/gov-sci-tech-watcher" target="_blank" rel="noopener noreferrer">open</a>, and we would like to know where it is wrong.</p>
+
+                <p><a href="https://science-signal.pages.dev" target="_blank" rel="noopener noreferrer">Look at it</a> &mdash; and if you find a number we have misread, a definition we have flattened, or a source we should be pulling and are not, tell us: <a href="mailto:shiro.takagi@unktok.com">shiro.takagi@unktok.com</a>, or an issue on the repository.</p>
+            </section>
+
+            <p class="post-footer-note">
+                A note on language: SCIENCE SIGNAL itself is written entirely in Japanese, because its primary readers are researchers and research administrators in Japan and its primary sources are Japanese government publications. This note describes it in English; the site it describes will not be. Chart labels, source citations, and the provenance ledgers on each page are Japanese-language throughout, though the underlying data in <code>data/*.json</code> in the <a href="https://github.com/t46/gov-sci-tech-watcher" target="_blank" rel="noopener noreferrer">repository</a> is machine-readable regardless of what you read. Figures in this note are screenshots of the live Japanese site, described in their alt text.
+            </p>
+        </article>
+    </main>
+
+    <footer>
+        <span class="coord">N 35.6762&deg; &nbsp;&middot;&nbsp; E 139.6503&deg;</span>
+        <span class="footer-links">
+            <a href="../transaction.html">Legal Notices (Japanese)</a>
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Service</a>
+        </span>
+        <span>&copy; 2026 Unktok — A living research system</span>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
