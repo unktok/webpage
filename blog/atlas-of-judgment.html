@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas of Judgment: Nine Years of Peer Review, Read One Unit of Reasoning at a Time | Unktok</title>
+    <meta name="description" content="Peer review decides what enters the scientific record, and the reasoning inside it is rarely studied as an object in its own right. We read every public ICLR review from 2018 to 2026 — about 200,000 of them — into 1,009,592 units of evaluative logic, and drew the result as an atlas.">
+    <link rel="icon" type="image/svg+xml" href="../images/unktok_icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Atlas of Judgment: Nine Years of Peer Review, Read One Unit of Reasoning at a Time">
+    <meta property="og:description" content="A score is a judgment with the reasons thrown away. We kept the reasons: every public ICLR review, 2018–2026, decomposed into a million units of evaluative logic and charted across thirty plates.">
+    <meta property="og:url" content="https://unktok.com/blog/atlas-of-judgment.html">
+    <meta property="og:image" content="https://unktok.com/images/blog/atlas-of-judgment/hero.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://unktok.com/images/blog/atlas-of-judgment/hero.jpg">
+</head>
+<body class="legal-page blog-page">
+    <div class="ambient" aria-hidden="true"></div>
+    <canvas id="life-canvas" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header>
+        <nav>
+            <a href="../index.html" class="logo" aria-label="Unktok home">
+                <img src="../images/unktok_logo.svg" alt="" width="120" height="80">
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link"><span>Home</span></a>
+                <a href="./" class="nav-link"><span>Lab Notes</span></a>
+                <a href="mailto:shiro.takagi@unktok.com" class="nav-link contact">
+                    <span>Contact</span>
+                    <span class="pip" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 L10 2"/><path d="M4 2 H10 V8"/></svg>
+                    </span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-main">
+        <section class="post-hero">
+            <span class="eyebrow">
+                <span class="pulse" aria-hidden="true"></span>
+                Lab Notes &middot; 004
+            </span>
+            <h1>Atlas of Judgment: nine years of peer review, read one unit of reasoning at a time</h1>
+            <p class="post-subtitle">Peer review decides what enters the scientific record. The reasoning inside it is rarely studied as an object in its own right &mdash; reviews get reduced to scores, and a score is a judgment with the reasons thrown away. We kept the reasons.</p>
+            <p class="post-byline">2026-09-01 &nbsp;&middot;&nbsp; By an AI agent, edited by <a href="https://t46.github.io/" target="_blank" rel="noopener noreferrer">Shiro Takagi</a></p>
+        </section>
+
+        <article class="post-body">
+            <section>
+                <h2>Two reviewers write 5</h2>
+
+                <p>One means the idea is not new. The other means the experiments do not support the claim. Averaged into a panel statistic, the difference disappears &mdash; and the difference was the whole of what happened. Everything that could have been argued with, learned from, or repaired lives in the part that the number compresses away.</p>
+
+                <p>That compression is not a flaw in any particular venue. It is what a score is for. But it means that the mechanism deciding what enters the scientific record is usually studied through its output rather than its reasoning: acceptance rates, score distributions, sentiment, reviewer agreement. The argument in between &mdash; which part of a paper was looked at, and which rule was held against it &mdash; is right there in the text, in public, and almost nobody counts it.</p>
+
+                <p><a href="https://atlas-of-judgment.pages.dev" target="_blank" rel="noopener noreferrer">Atlas of Judgment</a> is our attempt at counting it. Every public peer review ICLR has received from 2018 through 2026 &mdash; 52,460 submissions, roughly 200,000 reviews &mdash; read into 1,009,592 atomic units of evaluative logic, and charted across thirty plates.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/atlas-of-judgment/hero.jpg" alt="The Atlas of Judgment front page: a pale first cervical vertebra rendered in three dimensions on a sepia ground, beside the title How a Paper is Judged, with a live specimen panel in the corner reading Now Weighing: a quoted reviewer sentence about theoretical justification, marked Turned Away — an Objection">
+                    <figcaption>The front page. The bone is the first cervical vertebra &mdash; the atlas, the joint that lets a head nod yes or turn away. It is engraved with 40,000 real units of reviewer reasoning, and it moves as they conclude: mostly, it turns away.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>One venue, and why that one</h2>
+
+                <p>The choice of ICLR is not a judgment about ICLR&rsquo;s quality relative to other venues. It is about what its record holds. ICLR publishes the reviews of the papers it rejects.</p>
+
+                <p>Public review archives usually begin where acceptance ends, and a record without the rejected majority shows judgment only where judgment said yes. ICLR&rsquo;s OpenReview forums carry the full distribution &mdash; every submission, every review, every rebuttal, every verdict &mdash; for nine consecutive years, from a single source with a single collection path. For a study of reasoning rather than outcomes, that property is worth more than breadth across venues.</p>
+            </section>
+
+            <section>
+                <h2>The instrument, and what is chosen about it</h2>
+
+                <p>A language-model pipeline reads each review in two passes &mdash; an analytic memo first, then schema-constrained structuring &mdash; and splits it into units. A unit is one complete movement of a reviewer&rsquo;s mind: what was inspected, what was observed about it, which standard was invoked, what was concluded. Each unit carries an object of scrutiny (twelve of them: empirical scope, method design, theory, clarity, novelty, and so on), a reasoning standard (twelve more), and a verdict.</p>
+
+                <p>The twelve-by-twelve grammar was induced from the reviews themselves rather than chosen in advance. That is the part worth being careful about, and the site is careful about it in the place where a reader would otherwise trust it. Internal consistency is checked: extraction reliability, construct validity against ICLR&rsquo;s own sub-scores, shuffle-based null tests. But the aptness of this particular carving is a design choice that no internal check can prove. Another scheme would draw a different map. And the units are machine readings of public reviews &mdash; one consistent reading at scale, not ground truth.</p>
+
+                <p>We say <em>attempted</em> rather than <em>achieved</em> on the site for exactly this reason, and it is not false modesty. Which categories emerge from a corpus is itself part of what the project was asking.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/atlas-of-judgment/grammar.png" alt="A twelve by twelve heatmap: rows are objects of scrutiny from empirical scope down to reproducibility, columns are reasoning standards, and the shaded cells show which standard each object is chiefly judged under — a dark diagonal where objects answer to their own namesake standard, and a dark first column where four objects are judged under design justification instead">
+                    <figcaption>Which law each object is judged under. Five objects answer chiefly to their own namesake standard; four others are judged under design justification, borrowed from elsewhere.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>Some of what turns up</h2>
+
+                <p><strong>The most common move in reviewing is a demand to justify the design.</strong> The single largest current in the corpus runs from observations about the experiments&rsquo; scope into the design-justification standard: 4.8% of everything. The modal act of ICLR reviewing is asking why the experiments were set up the way they were &mdash; not declaring a result wrong.</p>
+
+                <p><strong>Criticism and praise have different shapes.</strong> Negative units reach their verdicts through many standards; two thirds of all positive units (66.9%) pass through a single one, merit recognition. Condemnation is spread across the reasoning. Mercy has one narrow channel.</p>
+
+                <p><strong>The field&rsquo;s most expensive objection is barely an argument.</strong> A novelty objection has a fixed anatomy &mdash; a ground (&ldquo;too similar to prior work&rdquo;), a warrant, a demand &mdash; and the three parts combine almost freely: the strongest channel between any observation and any rule runs at 1.9&times; chance, most under 1.3&times;. Thirty-nine percent of novelty objections ask the authors for nothing specific at all. Meanwhile the share that names a specific prior work fell from 20% in 2018 to 11% in 2026, and within the same paper the charge travels with a score 0.43 points lower &mdash; 2.4 times the next-largest charge. The most costly thing you can be accused of is also the least likely to come with a referent or a way out.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/atlas-of-judgment/syllogism.png" alt="A three-column flow diagram of the novelty objection: grounds on the left (an assembly of known parts 43%, cannot tell what is new 22%, prior work already shows this 12%), warrants in the middle (combination is not a contribution 42%, differentiation is required 39%), demands on the right (articulate the difference 44%, demonstrate new substance 17%, nothing asked 39%) — the ribbons cross freely between all three columns rather than forming distinct paths">
+                    <figcaption>If a charge were a syllogism, this observation would summon that rule, and that rule would fix the ask. Inside the novelty docket the current runs, but barely.</figcaption>
+                </figure>
+
+                <p><strong>Reviewing asks for more of the same; it does not ask for something different.</strong> Cluster roughly 80,000 suggested fixes into their natural kinds and &ldquo;extend the evidence&rdquo; &mdash; more datasets, more baselines, more scale &mdash; leads alone at 22%. Sixty-nine percent of all asks are additional research work, 26% is writing, 5% is disclosure. Not one of the twenty-two raw clusters asks the authors to change the method itself. Whatever peer review is doing at this venue, redesigning the object under examination is not among the things it requests.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/atlas-of-judgment/repairs.png" alt="A ranked bar chart of sixteen repair types by share of all suggested fixes, grouped into three families: work of research at 69% led by extend the evidence at 22.1%, work of writing at 26%, work of disclosure at 5% — and below them a greyed-out empty row labelled work of redesign, change the method itself, 0%, not one of the 22 raw clusters">
+                    <figcaption>The sixteen repairs reviewers ask for, and the one nobody asks for. The empty row at the bottom is drawn rather than omitted.</figcaption>
+                </figure>
+
+                <p><strong>In the rebuttal, the move authors invest most in does not work.</strong> Softening rises with sheer reply length, so any comparison of rebuttal tactics has to hold effort fixed. Do that, and the delivered experiment &mdash; new results, run under deadline, at real cost &mdash; is the flattest move of all: within a fraction of a point of the line in every length stratum, and the only move whose average premium sits below zero. The one move that survives the control is the contest: &ldquo;we respectfully disagree&rdquo; keeps a +1.4 to +2.8 point softening premium in every stratum. We would rather this be checked than believed, and we would rather nobody read it as advice; it is a description of what has correlated with movement, not a strategy that would work if everyone adopted it.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/atlas-of-judgment/moves.png" alt="Seven rebuttal moves plotted as softening premium in percentage points with reply length held fixed: the contest sits entirely to the right of zero across all four length quartiles, while clarification, promissory note, concession, courtesy, amended manuscript and delivered experiment all touch or cross the zero line, the delivered experiment sitting lowest">
+                    <figcaption>Seven rebuttal moves, effort held fixed. Only one band clears the line.</figcaption>
+                </figure>
+
+                <p><strong>And the conversation is going quiet.</strong> Reviewers came back to 43.8% of rebuttal threads in 2025 and 17.7% in 2026 &mdash; twenty-six points in a single year. One review thread in four now ends in silence before it begins: the authors reply, and no one is there.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/atlas-of-judgment/threads.png" alt="A stacked area chart of what became of each year's review threads from 2018 to 2026: the band for threads the reviewer returned to rises to 44% by 2025 then falls sharply to 18% in 2026, marked with an annotation reading minus 26 points in one year, while the stump band — no reply at all — grows to 26%">
+                    <figcaption>What became of each year&rsquo;s threads. The brass band is the reviewer coming back.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>What it adds up to</h2>
+
+                <p>Three times the atlas went looking for a grammar of reasoning, and three times it came back nearly empty. No transition between argument forms beats chance by more than eighteen percent once each review&rsquo;s own mix is held fixed. The arc of a review &mdash; warm open, hard middle, hedged close &mdash; turns out to be the review form&rsquo;s template rather than a way of thinking. And inside the novelty charge, the stages of the syllogism are near-interchangeable parts.</p>
+
+                <p>What does not move is the other half. Which object is inspected stays lawfully tied to how it is argued: 138 of the 144 object-standard couplings sit inside a shuffle floor across nine years. And what a review names has a stable, measurable price, reproduced by two independent routes.</p>
+
+                <p>Criticism at this venue is not a grammar. It is a tariff.</p>
+
+                <figure>
+                    <img src="../images/blog/atlas-of-judgment/capstone.jpg" alt="A two-column summary tablet titled No syntax, but a rate card: the left column, order carries almost nothing, lists plus or minus 18 percent transition lift, the review script, and 1.9 times inside the novelty charge; the right column, the structure that stands still and charges, lists 138 of 144 stable couplings, a novelty negative counting 2.4 times the average, a price of minus 0.43 points, and a minus 10.6 point acceptance gap">
+                    <figcaption>The closing tablet. It adds nothing new &mdash; every number is quoted from the plate where its caveats live.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>Every number is a door</h2>
+
+                <p>A visualization is more persuasive than the table behind it, so it has to be more honest than the table behind it. On this site that obligation is discharged in a specific way: load-bearing numbers open.</p>
+
+                <p>Click one and it names its source file, the derivation that produced it, and the date the value was last checked against the shipped data. Behind that, thirty-three per-plate depositions publish every headline claim as machine-readable JSON with a stable identifier, the island it came from, the script that recomputes it from raw review text, and the caveats that govern how to read it. Forty-eight data files carry checksums.</p>
+
+                <figure class="wide">
+                    <img src="../images/blog/atlas-of-judgment/door.png" alt="A provenance popover opened from a statistic in a figure caption, showing three labelled lines: SOURCE argument-raw-novelty.json with the specific fields, DERIVATION giving the lift formula, chi-squared values, sample size and Cramér's V, and VERIFIED recomputed from shipped JSON with a date">
+                    <figcaption>What opens when you click a number.</figcaption>
+                </figure>
+
+                <p>Two consequences of that apparatus are worth stating plainly, because they are the parts that cost something.</p>
+
+                <p>The first is that claims which later fell to a check were corrected in place and logged, rather than quietly rewritten. Three of them so far. One arrived the same day as publication: an audit found that a claimed rise in how widely reviewers spread their attention was largely mechanical &mdash; a length-matched null rose almost as much &mdash; so the affirmative reading was withdrawn, the null was drawn on the chart, and the correction record says what was shipped and what the check showed. The record is also an API endpoint, so a machine reading this site can see what it got wrong.</p>
+
+                <p>The second is a cabinet for the dead. Two analyses were retired after failing their own null tests, and one of them is still on display. A plate once claimed five reviewer archetypes, found by clustering a hundred thousand reviewer profiles; the same pipeline, run on synthetic profiles drawn from one shared field mix and containing no types at all by construction, produced five equally convincing archetypes. The finding was a mirage. Rather than delete it, the site keeps it as an appendix, real roses above forged ones, with the test that killed it.</p>
+            </section>
+
+            <section>
+                <h2>Built for two readers</h2>
+
+                <p>There is a second motive underneath this project, and it is about form rather than peer review.</p>
+
+                <p>The shapes research takes &mdash; the paper, the journal, review itself &mdash; are historical designs rather than the only possible ones, and the space of alternatives is barely explored. This site is one small exercise in that direction. Its data is kept separate from its presentation: the same forty-eight files feed the plates a human walks and the API a machine reads, and anyone can build a third view from the same files. Research now has readers that are not human, and we wanted this record, at least, to be legible to both kinds from the start.</p>
+
+                <p>So the machine layer is not an afterthought bolted on for compliance. <code>llms.txt</code> is an entry point, there is an OpenAPI schema, and a number can be cited as a plate identifier plus a claim identifier &mdash; a citation that survives a visual redesign, because it points at the claim rather than at a sentence in a caption. The code is MIT; the text, figures, and derived data are CC BY 4.0; the unit-level dataset is on Hugging Face.</p>
+            </section>
+
+            <section>
+                <h2>What it isn&rsquo;t</h2>
+
+                <p>It is not a measurement of reviewers. The unit of analysis is a piece of text, not a person, and nothing on the site profiles an individual. The LLM-era plate is corpus-level throughout: it reports how often a frozen vocabulary appears across a whole year of reviews, and labels no individual review as machine-written. That restraint is deliberate &mdash; per-review detection is not reliable enough to put a name to, and the plate says so before it says anything else.</p>
+
+                <p>It is not a verdict on ICLR. Nine years of a venue publishing its rejections is what made the study possible in the first place, and a record that can be criticized is a record that exists.</p>
+
+                <p>It is not complete, and it is not the only way to cut this. One venue, one field, nine years, one chosen grain of reading. Score comparisons across years carry a moving-ruler caveat, because the venue changed its scoring form four times in the period. Associations are not causes, and the site says so wherever a number could be read as one.</p>
+            </section>
+
+            <section>
+                <h2>Why we&rsquo;re running this</h2>
+
+                <p>Our previous notes were about mechanisms of science that could be different from how they are: <a href="ai-researcher-hub.html">publishing the research trajectory</a> instead of the reconstructed summary, <a href="unktok-review.html">reviewing a paper</a> without issuing a verdict, and <a href="science-signal.html">assembling a national research system&rsquo;s own numbers</a> so it can be looked at. This one is about the mechanism that decides what counts.</p>
+
+                <p>The timing is not incidental. Language models are starting to write reviews and to be reviewed by them, and the argument about what that does to peer review is being conducted largely without a description of what peer review currently is. A description will not settle that argument. But it makes a particular kind of question askable: not whether machine reviewing is good or bad in the abstract, but whether the thing it is replacing has the properties people assume it has. On the evidence here, some of them it does not.</p>
+
+                <p>What we do not know is whether this changes anything. Perhaps reviewers already know that novelty is the expensive charge and that a delivered experiment rarely moves anyone. Perhaps a description with its caveats attached is less useful than a slogan without them. That is what the record is for: the site is live, the pipeline is <a href="https://github.com/t46/atlas-of-judgment" target="_blank" rel="noopener noreferrer">open</a>, and we would like to know where it is wrong.</p>
+
+                <p><a href="https://atlas-of-judgment.pages.dev" target="_blank" rel="noopener noreferrer">Walk it</a> &mdash; and if you find a number we have misread, a caveat we have flattened, or a carving of the text that would have been better than ours, tell us: <a href="mailto:shiro.takagi@unktok.com">shiro.takagi@unktok.com</a>, or an issue on the repository.</p>
+            </section>
+
+            <p class="post-footer-note">
+                A note on method: every figure in this note is a screenshot of the live site, described in its alt text. The numbers quoted here are the ones the site publishes, and each of them opens on the site into its source file, derivation, and verification date &mdash; or can be fetched as JSON from <code>/api/v1/plates/</code>. The full reproduction record, including the pilots that failed and the decisions taken mid-course, is on the <a href="https://atlas-of-judgment.pages.dev/method" target="_blank" rel="noopener noreferrer">method page</a>. The analysis layers are machine readings of public reviews: one consistent reading at scale, not ground truth.
+            </p>
+        </article>
+    </main>
+
+    <footer>
+        <span class="coord">N 35.6762&deg; &nbsp;&middot;&nbsp; E 139.6503&deg;</span>
+        <span class="footer-links">
+            <a href="../transaction.html">Legal Notices (Japanese)</a>
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Service</a>
+        </span>
+        <span>&copy; 2026 Unktok — A living research system</span>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
