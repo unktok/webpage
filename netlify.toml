@@ -1,0 +1,3 @@
+[build]
+  command = "node scripts/validate-social-cards.mjs"
+  publish = "."
