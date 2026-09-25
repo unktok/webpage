@@ -69,13 +69,13 @@
   <circle cx="1057" cy="628" r="8" fill="#6f9c91"/><circle cx="1092" cy="628" r="8" fill="#6f9c91"/><circle cx="1127" cy="628" r="8" fill="#6f9c91"/>
   <circle cx="1070" cy="651" r="8" fill="#6f9c91"/><circle cx="1117" cy="651" r="8" fill="#6f9c91"/>
 
-  <text x="1251" y="444" class="micro">MANY POSSIBLE</text>
-  <text x="1251" y="469" class="micro">SCIENCES</text>
-  <text x="1251" y="504" class="small">Different actors,</text>
-  <text x="1251" y="529" class="small">knowledge forms,</text>
-  <text x="1251" y="554" class="small">evaluations, resources,</text>
-  <text x="1251" y="579" class="small">and distributions</text>
-  <text x="1251" y="604" class="small">of authority.</text>
+  <text x="1210" y="431" class="micro">MANY POSSIBLE</text>
+  <text x="1210" y="456" class="micro">SCIENCES</text>
+  <text x="1210" y="491" class="small">Different actors</text>
+  <text x="1210" y="516" class="small">Knowledge forms</text>
+  <text x="1210" y="541" class="small">Evaluation rules</text>
+  <text x="1210" y="566" class="small">Resource flows</text>
+  <text x="1210" y="591" class="small">Authority</text>
 
   <!-- Learning condition -->
   <rect x="142" y="749" width="1156" height="70" rx="35" fill="#dfece8" stroke="#7da69d" stroke-width="2"/>

@@ -1390,6 +1390,15 @@ footer a:hover {
   background: var(--bg-elev);
 }
 
+.post-body figure.core-thesis-figure picture {
+  display: block;
+  width: 100%;
+}
+
+.post-body figure.core-thesis-figure img {
+  max-width: 100%;
+}
+
 .post-body figcaption {
   margin-top: 12px;
   text-align: center;
@@ -1435,6 +1444,13 @@ footer a:hover {
   .post-index .post-desc {
     grid-column: 1;
   }
+
+  .post-body figure.core-thesis-figure {
+    width: calc(100% + 48px);
+    max-width: none;
+    margin-left: -24px;
+    margin-right: -24px;
+  }
 }
 
 /* Wide schematics: scroll rather than shrink to illegibility on narrow screens */
@@ -1453,6 +1469,41 @@ footer a:hover {
   .post-body figure.wide figcaption::after {
     content: " (scroll to see the whole diagram)";
     color: rgba(244, 241, 234, 0.24);
+  }
+}
+
+@media (max-width: 520px) {
+  body.blog-page header {
+    left: 12px;
+    right: 12px;
+  }
+
+  body.blog-page nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 6px 6px 6px 12px;
+  }
+
+  body.blog-page .logo img {
+    height: 24px;
+  }
+
+  body.blog-page .nav-links {
+    gap: 0;
+  }
+
+  body.blog-page .nav-links .nav-link:first-child {
+    display: none;
+  }
+
+  body.blog-page .nav-link {
+    padding: 8px 7px;
+    font-size: 10px;
+  }
+
+  body.blog-page .nav-link.contact {
+    padding: 7px 5px 7px 10px;
   }
 }
 

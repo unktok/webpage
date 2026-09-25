@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1120" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1200" role="img" aria-labelledby="title desc">
   <title id="title">AI makes science itself explorable</title>
   <desc id="desc">A single inherited scientific system passes through AI as an experimental medium and branches into multiple possible forms of science. The figure argues that we should not only predict how AI will change science, but explore which forms of science we want to make possible.</desc>
   <defs>
@@ -7,12 +7,12 @@
     </marker>
     <style>
       .display{font:500 46px Georgia,serif;fill:#29242b}
-      .subtitle{font:400 26px Arial,sans-serif;fill:#655f68}
-      .kicker{font:700 25px Arial,sans-serif;letter-spacing:2.7px;fill:#8d4e63}
-      .section{font:500 31px Georgia,serif;fill:#29242b}
-      .label{font:700 27px Arial,sans-serif;fill:#29242b}
-      .small{font:400 25px Arial,sans-serif;fill:#665f68}
-      .micro{font:700 25px Arial,sans-serif;letter-spacing:1.5px;fill:#8d4e63}
+      .subtitle{font:400 28px Arial,sans-serif;fill:#655f68}
+      .kicker{font:700 27px Arial,sans-serif;letter-spacing:2.2px;fill:#8d4e63}
+      .section{font:500 33px Georgia,serif;fill:#29242b}
+      .label{font:700 29px Arial,sans-serif;fill:#29242b}
+      .small{font:400 27px Arial,sans-serif;fill:#665f68}
+      .micro{font:700 27px Arial,sans-serif;letter-spacing:1.2px;fill:#8d4e63}
       .cream{fill:#fffaf2}
       .dark{fill:#2d2730}
       .rose-line{fill:none;stroke:#a55570;stroke-width:4;stroke-linecap:round;marker-end:url(#arrowRose)}
@@ -21,59 +21,60 @@
     </style>
   </defs>
 
-  <rect x="1" y="1" width="718" height="1118" rx="34" fill="#f6f1e8" stroke="#d9d0c3" stroke-width="2"/>
-  <text x="42" y="57" class="kicker">THE CENTRAL PROPOSITION</text>
-  <text x="42" y="114" class="display">AI makes science</text>
-  <text x="42" y="166" class="display">itself explorable.</text>
-  <text x="42" y="210" class="subtitle">Not only questions within science—</text>
-  <text x="42" y="244" class="subtitle">but the system that asks them.</text>
+  <rect x="1" y="1" width="718" height="1198" rx="34" fill="#f6f1e8" stroke="#d9d0c3" stroke-width="2"/>
+  <text x="42" y="59" class="kicker">THE CENTRAL PROPOSITION</text>
+  <text x="42" y="118" class="display">AI makes science</text>
+  <text x="42" y="170" class="display">itself explorable.</text>
+  <text x="42" y="218" class="subtitle">Not only questions within science—</text>
+  <text x="42" y="254" class="subtitle">but the system that asks them.</text>
 
-  <rect x="30" y="278" width="660" height="630" rx="32" fill="#ecefe9"/>
-  <text x="60" y="323" class="kicker" fill="#557f76">DESIGN SPACE OF SCIENCE</text>
-  <text x="60" y="365" class="section">Today’s arrangement is one</text>
-  <text x="60" y="402" class="section">possibility, not the boundary.</text>
+  <rect x="30" y="290" width="660" height="680" rx="32" fill="#ecefe9"/>
+  <text x="60" y="340" class="kicker" fill="#557f76">DESIGN SPACE OF SCIENCE</text>
+  <text x="60" y="386" class="section">Today’s arrangement is one</text>
+  <text x="60" y="426" class="section">possibility, not the boundary.</text>
 
-  <!-- The inherited system -->
-  <circle cx="180" cy="522" r="82" class="dark"/>
-  <path d="M145 493L184 475L220 503L207 548L164 560L139 529Z M145 493L207 548 M184 475L164 560 M220 503L139 529" class="network"/>
-  <circle cx="145" cy="493" r="8" class="cream"/><circle cx="184" cy="475" r="8" class="cream"/>
-  <circle cx="220" cy="503" r="8" class="cream"/><circle cx="207" cy="548" r="8" class="cream"/>
-  <circle cx="164" cy="560" r="8" class="cream"/><circle cx="139" cy="529" r="8" class="cream"/>
-  <text x="180" y="630" text-anchor="middle" class="micro">INHERITED</text>
-  <text x="180" y="661" text-anchor="middle" class="micro">SYSTEM</text>
+  <circle cx="175" cy="550" r="82" class="dark"/>
+  <path d="M140 521L179 503L215 531L202 576L159 588L134 557Z M140 521L202 576 M179 503L159 588 M215 531L134 557" class="network"/>
+  <circle cx="140" cy="521" r="8" class="cream"/><circle cx="179" cy="503" r="8" class="cream"/>
+  <circle cx="215" cy="531" r="8" class="cream"/><circle cx="202" cy="576" r="8" class="cream"/>
+  <circle cx="159" cy="588" r="8" class="cream"/><circle cx="134" cy="557" r="8" class="cream"/>
+  <text x="175" y="662" text-anchor="middle" class="micro">INHERITED</text>
+  <text x="175" y="696" text-anchor="middle" class="micro">SYSTEM</text>
 
-  <path d="M271 522H321" class="rose-line"/>
-  <rect x="338" y="443" width="300" height="158" rx="24" fill="#f7e7ed" stroke="#c97894" stroke-width="2"/>
-  <text x="488" y="482" text-anchor="middle" class="micro">AI SCIENTIST AS AN</text>
-  <text x="488" y="514" text-anchor="middle" class="micro">EXPERIMENTAL MEDIUM</text>
-  <text x="488" y="557" text-anchor="middle" class="label">Build · run · compare</text>
+  <path d="M266 550H309" class="rose-line"/>
+  <rect x="326" y="456" width="334" height="190" rx="24" fill="#f7e7ed" stroke="#c97894" stroke-width="2"/>
+  <text x="493" y="496" text-anchor="middle" class="micro">AI SCIENTIST</text>
+  <text x="493" y="530" text-anchor="middle" class="micro">AS A MEDIUM FOR</text>
+  <text x="493" y="564" text-anchor="middle" class="micro">SYSTEM EXPERIMENTS</text>
+  <text x="493" y="604" text-anchor="middle" class="label">BUILD · RUN</text>
+  <text x="493" y="636" text-anchor="middle" class="label">COMPARE</text>
 
-  <path d="M488 602V655" class="rose-line"/>
+  <path d="M493 648V699" class="rose-line"/>
 
-  <!-- Plural possible sciences -->
-  <circle cx="170" cy="746" r="66" fill="#fffaf2" stroke="#6f9c91" stroke-width="2"/>
-  <path d="M141 727L175 711L202 739L187 774L149 763Z M141 727L187 774 M175 711L149 763" class="network-dark"/>
-  <circle cx="141" cy="727" r="7" fill="#6f9c91"/><circle cx="175" cy="711" r="7" fill="#6f9c91"/>
-  <circle cx="202" cy="739" r="7" fill="#6f9c91"/><circle cx="187" cy="774" r="7" fill="#6f9c91"/><circle cx="149" cy="763" r="7" fill="#6f9c91"/>
+  <circle cx="170" cy="785" r="66" fill="#fffaf2" stroke="#6f9c91" stroke-width="2"/>
+  <path d="M141 766L175 750L202 778L187 813L149 802Z M141 766L187 813 M175 750L149 802" class="network-dark"/>
+  <circle cx="141" cy="766" r="7" fill="#6f9c91"/><circle cx="175" cy="750" r="7" fill="#6f9c91"/>
+  <circle cx="202" cy="778" r="7" fill="#6f9c91"/><circle cx="187" cy="813" r="7" fill="#6f9c91"/><circle cx="149" cy="802" r="7" fill="#6f9c91"/>
 
-  <rect x="294" y="680" width="132" height="132" rx="66" fill="#fffaf2" stroke="#6f9c91" stroke-width="2"/>
-  <path d="M326 746H394M360 715V777M326 746L360 715L394 746L360 777Z" class="network-dark"/>
-  <circle cx="326" cy="746" r="7" fill="#6f9c91"/><circle cx="394" cy="746" r="7" fill="#6f9c91"/>
-  <circle cx="360" cy="715" r="7" fill="#6f9c91"/><circle cx="360" cy="777" r="7" fill="#6f9c91"/>
+  <rect x="294" y="719" width="132" height="132" rx="66" fill="#fffaf2" stroke="#6f9c91" stroke-width="2"/>
+  <path d="M326 785H394M360 754V816M326 785L360 754L394 785L360 816Z" class="network-dark"/>
+  <circle cx="326" cy="785" r="7" fill="#6f9c91"/><circle cx="394" cy="785" r="7" fill="#6f9c91"/>
+  <circle cx="360" cy="754" r="7" fill="#6f9c91"/><circle cx="360" cy="816" r="7" fill="#6f9c91"/>
 
-  <rect x="484" y="680" width="132" height="132" rx="22" fill="#fffaf2" stroke="#6f9c91" stroke-width="2"/>
-  <path d="M510 720H590M510 746H590M510 772H590" class="network-dark"/>
-  <circle cx="532" cy="720" r="7" fill="#6f9c91"/><circle cx="573" cy="720" r="7" fill="#6f9c91"/>
-  <circle cx="520" cy="746" r="7" fill="#6f9c91"/><circle cx="550" cy="746" r="7" fill="#6f9c91"/><circle cx="580" cy="746" r="7" fill="#6f9c91"/>
-  <circle cx="532" cy="772" r="7" fill="#6f9c91"/><circle cx="573" cy="772" r="7" fill="#6f9c91"/>
+  <rect x="484" y="719" width="132" height="132" rx="22" fill="#fffaf2" stroke="#6f9c91" stroke-width="2"/>
+  <path d="M510 759H590M510 785H590M510 811H590" class="network-dark"/>
+  <circle cx="532" cy="759" r="7" fill="#6f9c91"/><circle cx="573" cy="759" r="7" fill="#6f9c91"/>
+  <circle cx="520" cy="785" r="7" fill="#6f9c91"/><circle cx="550" cy="785" r="7" fill="#6f9c91"/><circle cx="580" cy="785" r="7" fill="#6f9c91"/>
+  <circle cx="532" cy="811" r="7" fill="#6f9c91"/><circle cx="573" cy="811" r="7" fill="#6f9c91"/>
 
-  <text x="360" y="858" text-anchor="middle" class="micro">MANY POSSIBLE SCIENCES</text>
-  <text x="360" y="889" text-anchor="middle" class="small">Actors · knowledge · evaluation · resources · authority</text>
+  <text x="360" y="895" text-anchor="middle" class="micro">MANY POSSIBLE SCIENCES</text>
+  <text x="360" y="930" text-anchor="middle" class="small">Actors · knowledge · evaluation</text>
+  <text x="360" y="962" text-anchor="middle" class="small">Resources · authority</text>
 
-  <rect x="42" y="938" width="636" height="82" rx="24" fill="#dfece8" stroke="#7da69d" stroke-width="2"/>
-  <text x="360" y="973" text-anchor="middle" class="label">IMAGINE → BUILD → TEST → SHARE → FORK</text>
-  <text x="360" y="1004" text-anchor="middle" class="small">Learning accumulates only when experiments connect.</text>
+  <rect x="42" y="994" width="636" height="104" rx="26" fill="#dfece8" stroke="#7da69d" stroke-width="2"/>
+  <text x="360" y="1037" text-anchor="middle" class="label">IMAGINE → BUILD → TEST</text>
+  <text x="360" y="1075" text-anchor="middle" class="label">SHARE → LEARN → FORK</text>
 
-  <text x="360" y="1060" text-anchor="middle" class="small">Do not only predict how AI will change science.</text>
-  <text x="360" y="1098" text-anchor="middle" style="font:500 28px Georgia,serif;fill:#29242b">Ask what sciences we want to make possible.</text>
+  <text x="360" y="1135" text-anchor="middle" class="small">Do not only predict how AI will change science.</text>
+  <text x="360" y="1170" text-anchor="middle" style="font:500 31px Georgia,serif;fill:#29242b">Ask what sciences we want to make possible.</text>
 </svg>
