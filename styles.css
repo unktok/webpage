@@ -1451,6 +1451,12 @@ footer a:hover {
     margin-left: -24px;
     margin-right: -24px;
   }
+
+  .post-body figure.core-thesis-figure figcaption {
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+  }
 }
 
 /* Wide schematics: scroll rather than shrink to illegibility on narrow screens */
