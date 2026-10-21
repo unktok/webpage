@@ -20,9 +20,12 @@ const publicFiles = [
   "transaction.html",
   "tiktok-creative-lab-app.html",
   "tiktok-creative-lab.html",
-  "_redirects",
+  "404.html",
 ];
 const publicDirectories = ["api", "blog", "images"];
+
+// Pages already serves extensionless HTML routes. Netlify's rewrites back to
+// .html would loop with Pages' automatic redirects, so do not publish _redirects.
 
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
